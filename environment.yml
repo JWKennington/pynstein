@@ -5,6 +5,7 @@ channels:
   - defaults
 
 dependencies:
+  - coverage
   - matplotlib
   - numpy
   - pip
