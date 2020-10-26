@@ -3,6 +3,7 @@
 Presently only a dummy test to confirm repo setup and CI integration
 """
 import pathlib
+import types
 
 import collapse
 from collapse import tests
@@ -21,3 +22,4 @@ class TestCollapse:
     def test_test_root(self):
         EXPECTED = pathlib.Path(__file__).parent.parent
         assert tests.TEST_ROOT == EXPECTED, 'Collapse Test Directory moved. Expected {}, got {}'.format(EXPECTED.as_posix(), tests.TEST_ROOT.as_posix())
+        assert isinstance(tests.run_tests, types.FunctionType)
