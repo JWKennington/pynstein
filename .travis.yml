@@ -1,0 +1,32 @@
+language: python
+
+jobs:
+  include:
+    - os: linux
+      python: 3.6
+      env: TOXENV=py36
+    - os: linux
+      python: 3.7
+      env: TOXENV=py37
+    - os: osx
+      language: generic
+      env: TOXENV=py36
+    - os: osx
+      language: generic
+      env: TOXENV=py37
+
+branches:
+  only:
+    - master
+
+install:
+  - ./.travis/install.sh
+  - source "$HOME/miniconda/etc/profile.d/conda.sh"
+  - conda activate collapse-env
+  - python setup.py install
+
+script:
+  - pytest # run tests
+
+after_success:
+  - codecov # submit coverage
