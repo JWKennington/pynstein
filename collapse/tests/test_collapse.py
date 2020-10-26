@@ -3,8 +3,6 @@
 Presently only a dummy test to confirm repo setup and CI integration
 """
 
-import numpy
-
 import collapse
 
 
