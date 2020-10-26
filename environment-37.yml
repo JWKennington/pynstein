@@ -1,0 +1,16 @@
+name: collapse-env
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - matplotlib
+  - numpy
+  - pip
+  - pip:
+      - palettable
+  - pytest
+  - python=3.7
+  - scipy
+  - sympy
