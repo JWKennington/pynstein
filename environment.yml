@@ -5,12 +5,14 @@ channels:
   - defaults
 
 dependencies:
+  - coverage
   - matplotlib
   - numpy
   - pip
   - pip:
       - palettable
   - pytest
+  - pytest-mock
   - python=3.8
   - scipy
   - sympy

@@ -26,7 +26,7 @@ install:
   - python setup.py install
 
 script:
-  - pytest # run tests
+  - coverage run -m pytest # run tests
 
 after_success:
-  - codecov # submit coverage
+  - bash <(curl -s https://codecov.io/bash) # submit code coverage
