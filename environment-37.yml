@@ -12,6 +12,7 @@ dependencies:
   - pip:
       - palettable
   - pytest
+  - pytest-mock
   - python=3.7
   - scipy
   - sympy
