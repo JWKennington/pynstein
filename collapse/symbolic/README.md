@@ -14,15 +14,15 @@ P = Patch('origin', M)
 cs = coords.CoordSystem('cartesian', P, ['x', 'y'])
 cs
 ```
-
-$\text{OneDim}^{\text{origin}}_{\text{M}}$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\text{OneDim}^{\text{origin}}_{\text{M}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\text{OneDim}^{\text{origin}}_{\text{M}}" title="\large \text{OneDim}^{\text{origin}}_{\text{M}}" /></a>
+<!-- $\text{OneDim}^{\text{origin}}_{\text{M}}$ -->
 
 ```python
 # In sympy it is difficult to access underlying parameters, but the new base_symbols function makes it easy:
 cs.base_symbols()
 ```
-
-$\left( t, \  x\right)$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left(&space;t,&space;\&space;x\right)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left(&space;t,&space;\&space;x\right)" title="\large \left( t, \ x\right)" /></a>
+<!-- $\left( t, \  x\right)$ -->
 
 ## Metrics
 
@@ -46,8 +46,8 @@ g1 = metric.Metric(twoform=form) # Note: don't have to specify coords since impl
 # Notice that the Metric class will represent itself as a twoform
 g1
 ```
-
-$a^{2} \operatorname{d}x \otimes \operatorname{d}x + b^{2} \operatorname{d}y \otimes \operatorname{d}y$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;a^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;b^{2}&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;a^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;b^{2}&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y" title="\large a^{2} \operatorname{d}x \otimes \operatorname{d}x + b^{2} \operatorname{d}y \otimes \operatorname{d}y" /></a>
+<!-- $a^{2} \operatorname{d}x \otimes \operatorname{d}x + b^{2} \operatorname{d}y \otimes \operatorname{d}y$ -->
 
 ```python
 # Now let's create the same metric from a matrix
@@ -55,8 +55,8 @@ $a^{2} \operatorname{d}x \otimes \operatorname{d}x + b^{2} \operatorname{d}y \ot
 matrix = Array([[a**2, 0], [0, b**2]])
 matrix
 ```
-
-$\left[\begin{matrix}a^{2} & 0\\0 & b^{2}\end{matrix}\right]$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left[\begin{matrix}a^{2}&space;&&space;0\\0&space;&&space;b^{2}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left[\begin{matrix}a^{2}&space;&&space;0\\0&space;&&space;b^{2}\end{matrix}\right]" title="\large \left[\begin{matrix}a^{2} & 0\\0 & b^{2}\end{matrix}\right]" /></a>
+<!-- $\left[\begin{matrix}a^{2} & 0\\0 & b^{2}\end{matrix}\right]$ -->
 
 ```python
 # Creating a Metric from a matrix also requires you to specify the coordinate system (so the axes can be labeled)
@@ -67,16 +67,16 @@ g2 = metric.Metric(matrix=matrix, coord_system=cs)
 # Note that the Metric class automatically computes the two-form and uses it for representation
 g2
 ```
-
-$a^{2} \operatorname{d}x \otimes \operatorname{d}x + b^{2} \operatorname{d}y \otimes \operatorname{d}y$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;a^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;b^{2}&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;a^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;b^{2}&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y" title="\large a^{2} \operatorname{d}x \otimes \operatorname{d}x + b^{2} \operatorname{d}y \otimes \operatorname{d}y" /></a>
+<!-- $a^{2} \operatorname{d}x \otimes \operatorname{d}x + b^{2} \operatorname{d}y \otimes \operatorname{d}y$ -->
 
 ```python
 # Metrics can be inverted, and produce other metrics
 g3 = g2.inverse
 g3
 ```
-
-$\frac{\operatorname{d}y \otimes \operatorname{d}y}{b^{2}} + \frac{\operatorname{d}x \otimes \operatorname{d}x}{a^{2}}$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{\operatorname{d}y&space;\otimes&space;\operatorname{d}y}{b^{2}}&space;&plus;&space;\frac{\operatorname{d}x&space;\otimes&space;\operatorname{d}x}{a^{2}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{\operatorname{d}y&space;\otimes&space;\operatorname{d}y}{b^{2}}&space;&plus;&space;\frac{\operatorname{d}x&space;\otimes&space;\operatorname{d}x}{a^{2}}" title="\large \frac{\operatorname{d}y \otimes \operatorname{d}y}{b^{2}} + \frac{\operatorname{d}x \otimes \operatorname{d}x}{a^{2}}" /></a>
+<!-- $\frac{\operatorname{d}y \otimes \operatorname{d}y}{b^{2}} + \frac{\operatorname{d}x \otimes \operatorname{d}x}{a^{2}}$ -->
 
 ## Curvature
 
@@ -96,8 +96,8 @@ g4 = metric.Metric(twoform=F**2 * tpow(dx, 2) + b**2 * tpow(dy, 2))
 ```python
 curvature.ricci_tensor_component(0, 0, g4).doit()
 ```
-
-$- \frac{F{\left(x,y \right)} \frac{\partial^{2}}{\partial y^{2}} F{\left(x,y \right)}}{b^{2}}$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;-&space;\frac{F{\left(x,y&space;\right)}&space;\frac{\partial^{2}}{\partial&space;y^{2}}&space;F{\left(x,y&space;\right)}}{b^{2}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;-&space;\frac{F{\left(x,y&space;\right)}&space;\frac{\partial^{2}}{\partial&space;y^{2}}&space;F{\left(x,y&space;\right)}}{b^{2}}" title="\large - \frac{F{\left(x,y \right)} \frac{\partial^{2}}{\partial y^{2}} F{\left(x,y \right)}}{b^{2}}" /></a>
+<!-- $- \frac{F{\left(x,y \right)} \frac{\partial^{2}}{\partial y^{2}} F{\left(x,y \right)}}{b^{2}}$ -->
 
 
 ## Matter
@@ -119,22 +119,22 @@ Q = Function('Q')(t, x) # Define an arbitrary function that depends on x and y
 g5 = metric.Metric(twoform=- Q**2 * tpow(dt, 2) + b**2 * tpow(dx, 2), components=(Q, b))
 g5
 ```
-
-$b^{2} \operatorname{d}x \otimes \operatorname{d}x - Q^{2}{\left(t,x \right)} \operatorname{d}t \otimes \operatorname{d}t$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;b^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;-&space;Q^{2}{\left(t,x&space;\right)}&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;b^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;-&space;Q^{2}{\left(t,x&space;\right)}&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t" title="\large b^{2} \operatorname{d}x \otimes \operatorname{d}x - Q^{2}{\left(t,x \right)} \operatorname{d}t \otimes \operatorname{d}t" /></a>
+<!-- $b^{2} \operatorname{d}x \otimes \operatorname{d}x - Q^{2}{\left(t,x \right)} \operatorname{d}t \otimes \operatorname{d}t$ -->
 
 ```python
 # Now use the matter module to create the stress energy tensor for perfect fluid
 T = matter.perfect_fluid_stress_energy(g5)
 T
 ```
-
-$\left[\begin{matrix}p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left[\begin{matrix}p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left[\begin{matrix}p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" title="\large \left[\begin{matrix}p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]" /></a>
+<!-- $\left[\begin{matrix}p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]$ -->
 
 ```python
 curvature.einstein_tensor_component(0, 0, g5).doit()
 ```
-
-$\frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}}$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{Q^{2}{\left(t,x&space;\right)}}{2}&space;&plus;&space;\frac{Q{\left(t,x&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;Q{\left(t,x&space;\right)}}{b^{2}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{Q^{2}{\left(t,x&space;\right)}}{2}&space;&plus;&space;\frac{Q{\left(t,x&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;Q{\left(t,x&space;\right)}}{b^{2}}" title="\large \frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}}" /></a>
+<!-- $\frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}}$ -->
 
 ```python
 # Note that in the limit Q -> 1
@@ -142,14 +142,14 @@ g5_lim = g5.subs({Q: 1})
 T_lim = matter.perfect_fluid_stress_energy(g5_lim)
 T_lim
 ```
-
-$\left[\begin{matrix}\rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left[\begin{matrix}\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left[\begin{matrix}\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" title="\large \left[\begin{matrix}\rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]" /></a>
+<!-- $\left[\begin{matrix}\rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]$ -->
 
 ```python
 curvature.einstein_tensor_component(0, 0, g5_lim).doit()
 ```
-
-$\frac{1}{2}$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{1}{2}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{1}{2}" title="\large \frac{1}{2}" /></a>
+<!-- $\frac{1}{2}$ -->
 
 ## Gravity
 
@@ -161,15 +161,15 @@ from collapse.symbolic import gravity
 ```python
 gravity.einstein_equation(0, 0, g5).doit()
 ```
-
-$\frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}} = p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{Q^{2}{\left(t,x&space;\right)}}{2}&space;&plus;&space;\frac{Q{\left(t,x&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;Q{\left(t,x&space;\right)}}{b^{2}}&space;=&space;p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{Q^{2}{\left(t,x&space;\right)}}{2}&space;&plus;&space;\frac{Q{\left(t,x&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;Q{\left(t,x&space;\right)}}{b^{2}}&space;=&space;p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho" title="\large \frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}} = p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho" /></a>
+<!-- $\frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}} = p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho$ -->
 
 ```python
 # Similarly in the limit:
 gravity.einstein_equation(0, 0, g5_lim).doit()
 ```
-
-$\frac{1}{2} = \rho$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{1}{2}&space;=&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{1}{2}&space;=&space;\rho" title="\large \frac{1}{2} = \rho" /></a>
+<!-- $\frac{1}{2} = \rho$ -->
 
 ## Full Example: FLRW Cosmology
 
@@ -178,30 +178,26 @@ $\frac{1}{2} = \rho$
 flrw = metric.flrw_metric().subs({'c': 1})
 flrw
 ```
-
-$a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;a{\left(t&space;\right)}&space;\left(\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y&space;&plus;&space;\operatorname{d}z&space;\otimes&space;\operatorname{d}z\right)&space;-&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;a{\left(t&space;\right)}&space;\left(\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y&space;&plus;&space;\operatorname{d}z&space;\otimes&space;\operatorname{d}z\right)&space;-&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t" title="\large a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t" /></a>
+<!-- $a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t$ -->
 
 ```python
 efe_00 = gravity.einstein_equation(0, 0, flrw).doit()
 efe_00
 ```
-
-$\frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{4 a^{2}{\left(t \right)}} = \rho$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{1}{2}&space;-&space;\frac{3&space;\frac{d^{2}}{d&space;t^{2}}&space;a{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\left(\frac{d}{d&space;t}&space;a{\left(t&space;\right)}\right)^{2}}{4&space;a^{2}{\left(t&space;\right)}}&space;=&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{1}{2}&space;-&space;\frac{3&space;\frac{d^{2}}{d&space;t^{2}}&space;a{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\left(\frac{d}{d&space;t}&space;a{\left(t&space;\right)}\right)^{2}}{4&space;a^{2}{\left(t&space;\right)}}&space;=&space;\rho" title="\large \frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{4 a^{2}{\left(t \right)}} = \rho" /></a>
+<!-- $\frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{4 a^{2}{\left(t \right)}} = \rho$ -->
 
 ```python
 # Simplify derivative notation:
 metric.simplify_deriv_notation(efe_00, flrw)
 ```
-
-$\frac{1}{2} - \frac{3 \operatorname{a''}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \operatorname{a'}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} = \rho$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{1}{2}&space;-&space;\frac{3&space;\operatorname{a''}{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\operatorname{a'}^{2}{\left(t&space;\right)}}{4&space;a^{2}{\left(t&space;\right)}}&space;=&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{1}{2}&space;-&space;\frac{3&space;\operatorname{a''}{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\operatorname{a'}^{2}{\left(t&space;\right)}}{4&space;a^{2}{\left(t&space;\right)}}&space;=&space;\rho" title="\large \frac{1}{2} - \frac{3 \operatorname{a''}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \operatorname{a'}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} = \rho" /></a>
+<!-- $\frac{1}{2} - \frac{3 \operatorname{a''}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \operatorname{a'}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} = \rho$ -->
 
 ```python
 # Can also use "dots"
 metric.simplify_deriv_notation(efe_00, flrw, use_dots=True)
 ```
-
-$- \frac{3 \ddot{a}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \dot{a}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} + \frac{1}{2} = \rho$
-
-
-
-
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;-&space;\frac{3&space;\ddot{a}{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\dot{a}^{2}{\left(t&space;\right)}}{4&space;a^{2}{\left(t&space;\right)}}&space;&plus;&space;\frac{1}{2}&space;=&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;-&space;\frac{3&space;\ddot{a}{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\dot{a}^{2}{\left(t&space;\right)}}{4&space;a^{2}{\left(t&space;\right)}}&space;&plus;&space;\frac{1}{2}&space;=&space;\rho" title="\large - \frac{3 \ddot{a}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \dot{a}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} + \frac{1}{2} = \rho" /></a>
+<!-- $- \frac{3 \ddot{a}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \dot{a}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} + \frac{1}{2} = \rho$ -->
