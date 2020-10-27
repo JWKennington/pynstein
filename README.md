@@ -28,21 +28,17 @@ flrw = metric.flrw_metric().subs({'c': 1})
 flrw
 ```
 
+<img src="http://www.sciweavers.org/tex2img.php?eq=a%7B%5Cleft%28t%20%5Cright%29%7D%20%5Cleft%28%5Coperatorname%7Bd%7Dx%20%5Cotimes%20%5Coperatorname%7Bd%7Dx%20%2B%20%5Coperatorname%7Bd%7Dy%20%5Cotimes%20%5Coperatorname%7Bd%7Dy%20%2B%20%5Coperatorname%7Bd%7Dz%20%5Cotimes%20%5Coperatorname%7Bd%7Dz%5Cright%29%20-%20%5Coperatorname%7Bd%7Dt%20%5Cotimes%20%5Coperatorname%7Bd%7Dt&bc=White&fc=Black&im=png&fs=18&ff=modern&edit=0" align="center" border="0" alt="a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t" width="521" height="29" />
+<!-- $a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t$ -->
 
-$a+b$
-
-
-$$a+b$$
-
-
-$a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t$
 
 ```python
 efe_00 = gravity.einstein_equation(0, 0, flrw).doit()
 efe_00
 ```
 
-$\frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{4 a^{2}{\left(t \right)}} = \rho$
+<img src="http://www.sciweavers.org/tex2img.php?eq=%5Cfrac%7B1%7D%7B2%7D%20-%20%5Cfrac%7B3%20%5Cfrac%7Bd%5E%7B2%7D%7D%7Bd%20t%5E%7B2%7D%7D%20a%7B%5Cleft%28t%20%5Cright%29%7D%7D%7B2%20a%7B%5Cleft%28t%20%5Cright%29%7D%7D%20%2B%20%5Cfrac%7B3%20%5Cleft%28%5Cfrac%7Bd%7D%7Bd%20t%7D%20a%7B%5Cleft%28t%20%5Cright%29%7D%5Cright%29%5E%7B2%7D%7D%7B4%20a%5E%7B2%7D%7B%5Cleft%28t%20%5Cright%29%7D%7D%20%3D%20%5Crho&bc=White&fc=Black&im=png&fs=18&ff=modern&edit=0" align="center" border="0" alt="\frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{4 a^{2}{\left(t \right)}} = \rho" width="329" height="71" />
+<!-- $\frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{4 a^{2}{\left(t \right)}} = \rho$ -->
 
 
 ```python
@@ -50,5 +46,6 @@ $\frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \ri
 metric.simplify_deriv_notation(efe_00, flrw, use_dots=True)
 ```
 
-$- \frac{3 \ddot{a}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \dot{a}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} + \frac{1}{2} = \rho$
+<img src="http://www.sciweavers.org/tex2img.php?eq=-%20%5Cfrac%7B3%20%5Cddot%7Ba%7D%7B%5Cleft%28t%20%5Cright%29%7D%7D%7B2%20a%7B%5Cleft%28t%20%5Cright%29%7D%7D%20%2B%20%5Cfrac%7B3%20%5Cdot%7Ba%7D%5E%7B2%7D%7B%5Cleft%28t%20%5Cright%29%7D%7D%7B4%20a%5E%7B2%7D%7B%5Cleft%28t%20%5Cright%29%7D%7D%20%2B%20%5Cfrac%7B1%7D%7B2%7D%20%3D%20%5Crho&bc=White&fc=Black&im=png&fs=18&ff=modern&edit=0" align="center" border="0" alt="- \frac{3 \ddot{a}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \dot{a}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} + \frac{1}{2} = \rho" width="275" height="62" />
+<!-- $- \frac{3 \ddot{a}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \dot{a}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} + \frac{1}{2} = \rho$ -->
 
