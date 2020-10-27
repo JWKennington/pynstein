@@ -5,7 +5,7 @@ import functools
 import itertools
 from typing import Tuple, Union
 
-from sympy import Function, sin, Expr, Array, Derivative as D
+from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matrix
 from sympy.diffgeom import twoform_to_matrix
 
 from collapse.symbolic import coords
@@ -20,6 +20,8 @@ class Metric:
 
         # Construct twoform if none given
         if twoform is None:
+            if not isinstance(matrix, MatrixBase):
+                matrix = Matrix(matrix)
             if coord_system is None:
                 raise ValueError('Must specify coord system if constructing metric from matrix')
             twoform = matrix_to_twoform(matrix, coord_system.base_oneforms())  # TODO check ordering of base oneforms?
@@ -51,7 +53,7 @@ class Metric:
         return self._matrix
 
     @property
-    def inverse(self): # TODO include method parameters in here, for instance pseudo inverse
+    def inverse(self):  # TODO include method parameters in here, for instance pseudo inverse
         if self._inverse is None:
             self._inverse = self.matrix.inv()  # only compute once
         return Metric(matrix=self._inverse, coord_system=self.coord_system, components=self.components)
@@ -91,8 +93,8 @@ def friedmann_lemaitre_roberston_walker_metric():
 flrw_metric = friedmann_lemaitre_roberston_walker_metric  # shorthand for conventional names
 
 
-def _deriv_simplify_rule(component: Function, variables: Union[Expr, Tuple[Expr,...]], use_dots: bool = False):
-    if not isinstance(variables, tuple): # TODO make this "boxing" more robust
+def _deriv_simplify_rule(component: Function, variables: Union[Expr, Tuple[Expr, ...]], use_dots: bool = False):
+    if not isinstance(variables, tuple):  # TODO make this "boxing" more robust
         variables = (variables,)
     args = component.args
     order = len(variables)
@@ -114,6 +116,6 @@ def simplify_deriv_notation(expr: Expr, metric: Metric, max_order: int = 2, use_
     variables = metric.coord_system.base_symbols()
     rules = []
     for n in range(1, max_order + 1):
-        n_order_rules = [_deriv_simplify_rule(c, vs, use_dots=use_dots) for c, vs in itertools.product(components, itertools.product(*(n*[variables])))]
+        n_order_rules = [_deriv_simplify_rule(c, vs, use_dots=use_dots) for c, vs in itertools.product(components, itertools.product(*(n * [variables])))]
         rules.extend(n_order_rules)
     return expr.subs(dict(rules))
