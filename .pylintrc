@@ -1,0 +1,5 @@
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+# Note that we have excluded "TODO"
+notes=FIXME,XXX
