@@ -19,8 +19,6 @@ The `collapse` package makes use of `sympy` to compute symbolic curvature equati
 
 ### Example Computation: FLRW Cosmology
 
-## Full Example: FLRW Cosmology
-
 ```python
 # Load the predefined FLRW metric
 from collapse.symbolic import metric, gravity
