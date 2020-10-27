@@ -28,6 +28,13 @@ flrw = metric.flrw_metric().subs({'c': 1})
 flrw
 ```
 
+
+$a+b$
+
+
+$$a+b$$
+
+
 $a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t$
 
 ```python
