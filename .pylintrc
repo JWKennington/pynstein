@@ -1,3 +1,6 @@
+[FORMAT]
+max-line-length=200
+
 [MISCELLANEOUS]
 
 # List of note tags to take in consideration, separated by a comma.
