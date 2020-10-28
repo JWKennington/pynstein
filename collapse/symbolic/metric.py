@@ -10,7 +10,7 @@ from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matri
 from sympy.diffgeom import twoform_to_matrix
 from sympy.printing.latex import latex
 
-from collapse.symbolic import coords
+from collapse.symbolic import coords, constants
 from collapse.symbolic.constants import c
 from collapse.symbolic.utilities import tensor_pow as tpow, matrix_to_twoform
 
@@ -99,7 +99,7 @@ def general_inhomogeneous_isotropic_metric(use_natural_units: bool = True):
            L ** 2 * tpow(dr + c * M * dt, 2) + \
            S ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2))
     if use_natural_units:
-        form =
+        form = constants.subs_natural(form)
     return Metric(twoform=form, components=(M, N, L, S))
 
 
