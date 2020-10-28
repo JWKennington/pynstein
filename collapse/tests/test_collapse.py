@@ -2,6 +2,7 @@
 
 Presently only a dummy test to confirm repo setup and CI integration
 """
+
 import pathlib
 
 import collapse
@@ -9,6 +10,7 @@ from collapse import tests
 
 
 class TestCollapse:
+    """Test Collapse package"""
 
     def test_package_version(self):
         """Consistency test for version numbers"""
@@ -19,6 +21,7 @@ class TestCollapse:
         assert collapse.__MICRO__ == EXPECTED[2], MSG.format(comp='MICRO', exp=EXPECTED[2], got=collapse.__MICRO__)
 
     def test_test_root(self):
+        """Test test root dir"""
         EXPECTED = pathlib.Path(__file__).parent.parent
         assert tests.TEST_ROOT == EXPECTED, 'Collapse Test Directory moved. Expected {}, got {}'.format(EXPECTED.as_posix(), tests.TEST_ROOT.as_posix())
 

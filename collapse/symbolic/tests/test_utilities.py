@@ -1,10 +1,9 @@
 """Unittests for the Symbolic utilities Module
 """
 
-import pytest
-
 from sympy import symbols, Matrix
-from collapse.symbolic import matter, metric, utilities, coords
+
+from collapse.symbolic import utilities, coords
 
 
 class TestUtilities:
@@ -15,7 +14,6 @@ class TestUtilities:
         a = symbols('a')
         assert repr(utilities.tensor_pow(a, 1)) == "a"
         assert repr(utilities.tensor_pow(a, 3)) == "a**3"
-
 
     def test_matrix_to_twoform(self):
         """Test matrix -> Expr"""

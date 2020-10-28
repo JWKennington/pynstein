@@ -28,6 +28,7 @@ NATURAL_VALUE = 1
 
 @enum.unique
 class UnitSystem(str, enum.Enum):
+    """Unit Systems Constants"""
     SI = 'si'
     CGS = 'cgs'
     NATURAL = 'natural'
@@ -39,7 +40,7 @@ m_P = plank_mass = Unit(['m_P', 'Planck_mass'], represents=math.sqrt((constants.
 t_P = plank_time = Unit(['t_P', 'Planck_time'], represents=math.sqrt((constants.hbar * constants.G / (constants.c ** 5)).si.value) * second)
 T_P = plank_temp = Unit(['T_P', 'Planck_temp'], represents=math.sqrt((constants.hbar * (constants.c ** 5) / (constants.G * constants.k_B ** 2)).si.value) * Kelvin)
 
-NATURAL_EQUIVALENCIES = [ # TODO make this work with full conversion to natural units
+NATURAL_EQUIVALENCIES = [  # TODO make this work with full conversion to natural units
     (meter, l_P, lambda x: l_P.si.scale * x, lambda x: x / l_P.si.scale),
     (second, t_P, lambda x: t_P.si.scale * x, lambda x: x / t_P.si.scale),
     (kilogram, m_P, lambda x: m_P.si.scale * x, lambda x: x / m_P.si.scale),
@@ -67,10 +68,12 @@ class ConstantSymbol(Symbol):
 
     @property
     def constant(self):
+        """Safe attr access for _constant"""
         return self._constant
 
     @property
     def is_natural_unit(self):
+        """Safe attr access for _is_natural_unit"""
         return self._is_natural_unit
 
     @property
@@ -87,9 +90,11 @@ class ConstantSymbol(Symbol):
 
     @property
     def unit(self):
+        """Safe attr access for constant.unit"""
         return self.constant.unit
 
     def is_constant(self, *wrt, **flags):
+        """Override this method to instantly return True"""
         return True
 
 
