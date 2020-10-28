@@ -68,7 +68,7 @@ class TestConstants:
     def test_constant_symbol_natural(self):
         """Test class attrs - natural"""
         c = constants.c
-        assert repr(c.natural) == "<Quantity 1.>"
+        assert repr(c.natural) == "<Quantity 1>"
 
         with pytest.raises(NotImplementedError):
             _ = constants.h.natural
@@ -131,7 +131,7 @@ class TestConstantSubs:
         a, b = symbols('a b')
         expr = 4 * constants.c * a + 5 * b / constants.G
         subd = constants.subs_natural(expr)
-        assert repr(subd) == "4.0*a + 5.0*b"
+        assert repr(subd) == "4*a + 5*b"
 
         with pytest.raises(ValueError):
             expr = expr + constants.h
