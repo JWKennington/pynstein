@@ -32,12 +32,13 @@ def christoffel_symbol_component(lam: int, mu: int, nu: int, metric: Metric) -> 
     Returns:
         Expression of the G_mn^l
     """
-    MR, MI = metric.matrix, metric.inverse.matrix
+    M = metric.matrix
+    MI = metric.inverse.matrix
     coord_symbols = metric.coord_system.base_symbols()
     dim = len(coord_symbols)
-    return Rational(1 / 2) * sum([MI[lam, sig] * (D(MR[nu, sig], coord_symbols[mu]) +
-                                                  D(MR[sig, mu], coord_symbols[nu]) -
-                                                  D(MR[mu, nu], coord_symbols[sig])) for sig in range(dim)])
+    return Rational(1 / 2) * sum([MI[lam, sig] * (D(M[nu, sig], coord_symbols[mu]) +
+                                                  D(M[sig, mu], coord_symbols[nu]) -
+                                                  D(M[mu, nu], coord_symbols[sig])) for sig in range(dim)])
 
 
 def riemann_tensor_component(rho: int, sig: int, mu: int, nu: int, metric: Metric) -> Expr:
