@@ -27,6 +27,13 @@ setuptools.setup(name='collapse',
                      'scipy',
                      'simpy',
                  ],
+                 classifiers=[
+                     "Programming Language :: Python",
+                     "Programming Language :: Python :: 3.7",
+                     "Programming Language :: Python :: 3.8",
+                     "Operating System :: MacOS",
+                     "Operating System :: POSIX :: Linux",
+                 ],
                  zip_safe=False,
                  include_package_data=True,
                  )

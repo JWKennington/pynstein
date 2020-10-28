@@ -1,3 +1,4 @@
+"""Tests subpackage"""
 import pathlib
 
 import pytest
