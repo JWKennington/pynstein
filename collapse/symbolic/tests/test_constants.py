@@ -50,6 +50,41 @@ class TestConstants:
         _ = constants.ConstantSymbol(astro_constants.e)
         _ = constants.ConstantSymbol(astro_constants.e, is_natural_unit=True)
 
+    def test_constant_symbol_cgs(self):
+        """Test class attrs - cgs"""
+        c = constants.c
+        assert repr(c.cgs) == "<Quantity 2.99792458e+10 cm / s>"
+
+    def test_constant_symbol_constant(self):
+        """Test class attrs - constant"""
+        c = constants.c
+        assert c.constant == astro_constants.c
+
+    def test_constant_symbol_is_natural_unit(self):
+        """Test class attrs - is natural unit"""
+        c = constants.c
+        assert c.is_natural_unit
+
+    def test_constant_symbol_natural(self):
+        """Test class attrs - natural"""
+        c = constants.c
+        assert repr(c.natural) == "<Quantity 1.>"
+
+    def test_constant_symbol_si(self):
+        """Test class attrs - si"""
+        c = constants.c
+        assert c.si == astro_constants.c.si
+
+    def test_constant_symbol_unit(self):
+        """Test class attrs - unit"""
+        c = constants.c
+        assert repr(c.unit) == 'Unit("m / s")'
+
+    def test_constant_symbol_is_constant(self):
+        """Test class attrs - constant"""
+        c = constants.c
+        assert c.is_constant()
+
     def test_predefined_constants(self):
         """Test Predefined Constants"""
         assert isinstance(constants.c, constants.ConstantSymbol)
@@ -62,11 +97,10 @@ class TestConstants:
 class TestConstantSubs:
     """Tests constants substitution"""
 
-    def _dummy_expr(self, include_non_natural: bool = False):
+    def _dummy_expr(self):
         """Create a dummy expression"""
         x, y = symbols('x y')
-        expr = 2 * constants.c * x + 3 * y / constants.G
-        return expr + constants.h if include_non_natural else expr
+        return 2 * constants.c * x + 3 * y / constants.G
 
     def test__subs_const_values(self):
         """Test helper function for sub"""
@@ -88,9 +122,11 @@ class TestConstantSubs:
 
     def test_subs_natural(self):
         """Test substitute NATURAL values"""
-        expr = self._dummy_expr()
+        a, b = symbols('a b')
+        expr = 4 * constants.c * a + 5 * b / constants.G
         subd = constants.subs_natural(expr)
-        assert repr(subd) == "2.0*x + 3.0*y"
+        assert repr(subd) == "4.0*a + 5.0*b"
 
         with pytest.raises(ValueError):
-            constants.subs_natural(self._dummy_expr(include_non_natural=True))
+            expr = expr + constants.h
+            constants.subs_natural(expr)
