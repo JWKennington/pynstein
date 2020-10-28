@@ -96,10 +96,11 @@ class TestMetricDerivativeSimplification:
 
     def test__deriv_simplify_rule(self):
         """Consistency test for version numbers"""
-        t, r = symbols('t r')
+        t, r, phi = symbols('t r phi')
         F = Function('F')(t)
         G = Function('G')(t, r)
 
+        assert metric._deriv_simplify_rule(F, phi)[1] == 0
         assert metric._deriv_simplify_rule(F, t)[1].name == "F'"
         assert metric._deriv_simplify_rule(F, (t, t))[1].name == "F''"
         assert metric._deriv_simplify_rule(F, t, use_dots=True)[1].name == r"\dot{F}"
