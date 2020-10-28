@@ -71,7 +71,7 @@ class TestConstants:
         assert repr(c.natural) == "<Quantity 1.>"
 
         with pytest.raises(NotImplementedError):
-            constants.h.natural
+            _ = constants.h.natural
 
     def test_constant_symbol_si(self):
         """Test class attrs - si"""
