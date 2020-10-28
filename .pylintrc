@@ -1,6 +1,7 @@
 [BASIC]
 # Allow one-letter variable names... this is physics not Google
 variable-rgx=[a-zA-Z_][a-z0-9_]{0,30}$
+argument-rgx=[a-zA-Z_][a-z0-9_]{0,30}$
 
 [FORMAT]
 max-line-length=200
