@@ -4,6 +4,9 @@ variable-rgx=[a-zA-Z_][a-z0-9_]{0,30}$
 argument-rgx=[a-zA-Z_][a-z0-9_]{0,30}$
 method-rgx=[a-z_][a-z0-9_]{2,60}$
 
+[MESSAGES CONTROL]
+disable=no-self-use
+
 [FORMAT]
 max-line-length=200
 
