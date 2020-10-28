@@ -8,6 +8,7 @@ from collapse.symbolic.utilities import tensor_pow as tpow
 
 
 class TestCoords:
+    """Test Coords Module"""
 
     def test__coord_system_symbols(self):
         manifold = Manifold('M', 4)
@@ -36,6 +37,7 @@ class TestCoords:
 
 
 class TestCoordSystem:
+    """Test CoordSystem Class"""
 
     def _dummy_cs(self):
         manifold = Manifold('M', 3)

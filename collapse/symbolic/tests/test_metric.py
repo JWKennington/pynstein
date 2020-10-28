@@ -10,6 +10,7 @@ from collapse.symbolic.utilities import tensor_pow as tpow
 
 
 class TestMetric:
+    """Test Metric module"""
 
     def _dummy_metric(self):
         cs = coords.toroidal_coords(dim=2)
@@ -67,6 +68,7 @@ class TestMetric:
 
 
 class TestPredefinedMetrics:
+    """Test predefined metrics"""
 
     def test_gim(self):
         assert repr(metric.general_inhomogeneous_metric()) == ('-c**2*N(t, r)**2*TensorProduct(dt, dt) + L(t, r)**2*TensorProduct(c*M(t, '
@@ -80,6 +82,7 @@ class TestPredefinedMetrics:
 
 
 class TestMetricDerivativeSimplification:
+    """Test metric derivative notation"""
 
     def test__deriv_simplify_rule(self):
         """Consistency test for version numbers"""

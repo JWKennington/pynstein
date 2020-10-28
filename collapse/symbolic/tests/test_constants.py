@@ -8,6 +8,7 @@ from collapse.symbolic.constants import UnitSystem
 
 
 class TestNaturalUnits:
+    """Test Natural Units"""
     # TODO this part is in progress
     def test_values(self):
         assert str(constants.l_P.represents) == "1.61626e-35 m"
@@ -20,6 +21,7 @@ class TestNaturalUnits:
 
 
 class TestUnitSystem:
+    """Test UnitSystem enum"""
 
     def test_values(self):
         assert UnitSystem.SI == 'si'
@@ -35,6 +37,7 @@ class TestUnitSystem:
 
 
 class TestConstants:
+    """Test Constants Module"""
 
     def test_create(self):
         x = constants.ConstantSymbol(astro_constants.e)
@@ -49,6 +52,7 @@ class TestConstants:
 
 
 class TestConstantSubs:
+    """Tests constants substitution"""
 
     def _dummy_expr(self, include_non_natural: bool = False):
         x, y = symbols('x y')
