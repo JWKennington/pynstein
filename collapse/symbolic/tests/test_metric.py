@@ -85,7 +85,7 @@ class TestPredefinedMetrics:
 
     def test_gim(self):
         """Test Predefined GIM metric"""
-        assert repr(metric.general_inhomogeneous_metric()) == ('-c**2*N(t, r)**2*TensorProduct(dt, dt) + L(t, r)**2*TensorProduct(c*M(t, '
+        assert repr(metric.general_inhomogeneous_isotropic_metric()) == ('-c**2*N(t, r)**2*TensorProduct(dt, dt) + L(t, r)**2*TensorProduct(c*M(t, '
                                                                'r)*dt + dr, c*M(t, r)*dt + dr) + S(t, '
                                                                'r)**2*(sin(theta)**2*TensorProduct(dphi, dphi) + TensorProduct(dtheta, '
                                                                'dtheta))')

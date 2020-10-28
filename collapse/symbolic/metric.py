@@ -78,12 +78,12 @@ class Metric:
                       components=tuple(c for c in self.components if not c.subs(*args, **kwargs).doit().is_constant()))
 
 
-def general_inhomogeneous_metric():
-    """Utility for constructing a general inhomogeneous, but still isotropic, metric. The metric
+def general_inhomogeneous_isotropic_metric(use_natural_units: bool = True):
+    """Utility for constructing a general inhomogeneous, but still isotropic, metric (GIIM). The metric
     components M, N, L, S all depend on time and radius, but not theta or phi (hence isotropy).
 
     Returns:
-        Metric, the GIM metric
+        Metric, the GIIM metric
     """
     cs = coords.toroidal_coords()
     t, r, theta, _ = cs.base_symbols()
@@ -98,7 +98,12 @@ def general_inhomogeneous_metric():
     form = - c ** 2 * N ** 2 * tpow(dt, 2) + \
            L ** 2 * tpow(dr + c * M * dt, 2) + \
            S ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2))
+    if use_natural_units:
+        form =
     return Metric(twoform=form, components=(M, N, L, S))
+
+
+giim_metric = general_inhomogeneous_isotropic_metric  # shorthand for conventional names
 
 
 def friedmann_lemaitre_roberston_walker_metric():
