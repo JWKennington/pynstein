@@ -13,6 +13,7 @@ class TestMetric:
     """Test Metric module"""
 
     def _dummy_metric(self):
+        """Make a dummy metric"""
         cs = coords.toroidal_coords(dim=2)
         t, r = cs.base_symbols()
         dt, dr = cs.base_oneforms()
@@ -21,10 +22,12 @@ class TestMetric:
         return metric.Metric(twoform=form, components=(a, b))
 
     def test_create_from_twoform(self):
+        """Test creation from a twoform"""
         g = self._dummy_metric()
         assert isinstance(g, metric.Metric)
 
     def test_create_from_matrix(self):
+        """Test creation from a matrix"""
         cs = coords.toroidal_coords(dim=2)
         a, b = symbols('a b')
         matrix = Array([[a, 0], [0, b]])
@@ -34,19 +37,23 @@ class TestMetric:
         assert isinstance(g, metric.Metric)
 
     def test_repr(self):
+        """Test string representation"""
         g = self._dummy_metric()
         assert repr(g) == r"a*TensorProduct(dt, dt) + b*TensorProduct(dr, dr)"
 
     def test_repr_latex(self):
+        """Test LaTeX representation"""
         g = self._dummy_metric()
         assert g._repr_latex_() == '$\\displaystyle a \\operatorname{d}t \\otimes \\operatorname{d}t + b \\operatorname{d}r \\otimes \\operatorname{d}r$'
 
     def test_properties(self):
+        """Test properties"""
         g = self._dummy_metric()
         _ = g.twoform
         _ = g.matrix
 
     def test_inverse(self):
+        """Test Inverse"""
         g = self._dummy_metric()
 
         # First, check cache is empty
@@ -61,6 +68,7 @@ class TestMetric:
         assert g._inverse is not None
 
     def test_subs(self):
+        """Test Subs"""
         g = self._dummy_metric()
         p = g.subs({g.components[0]: 0})
         assert repr(p.twoform) == "b*TensorProduct(dr, dr)"
@@ -71,12 +79,14 @@ class TestPredefinedMetrics:
     """Test predefined metrics"""
 
     def test_gim(self):
+        """Test Predefined GIM metric"""
         assert repr(metric.general_inhomogeneous_metric()) == ('-c**2*N(t, r)**2*TensorProduct(dt, dt) + L(t, r)**2*TensorProduct(c*M(t, '
                                                                'r)*dt + dr, c*M(t, r)*dt + dr) + S(t, '
                                                                'r)**2*(sin(theta)**2*TensorProduct(dphi, dphi) + TensorProduct(dtheta, '
                                                                'dtheta))')
 
     def test_flrw(self):
+        """Test Predefined FLRW metric"""
         assert repr(metric.flrw_metric()) == ('-c**2*TensorProduct(dt, dt) + a(t)*(TensorProduct(dx, dx) + '
                                               'TensorProduct(dy, dy) + TensorProduct(dz, dz))')
 
@@ -99,6 +109,7 @@ class TestMetricDerivativeSimplification:
         assert metric._deriv_simplify_rule(G, (t, r))[1].name == "G_{t r}"
 
     def test_simplify_deriv_notation(self):
+        """Test simplify deriv notation"""
         cs = coords.cartesian_coords()
         t, x, *_ = cs.base_symbols()
         dt, dx, *_ = cs.base_oneforms()

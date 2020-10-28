@@ -11,6 +11,7 @@ class TestCoords:
     """Test Coords Module"""
 
     def test__coord_system_symbols(self):
+        """Test coord symbol extraction"""
         manifold = Manifold('M', 4)
         origin_patch = Patch('o', manifold)
         sym_cs = _CoordSystem('cartesian', origin_patch, ['x', 'y', 'z'])
@@ -18,6 +19,7 @@ class TestCoords:
         assert sym_cs_symbols == symbols('x y z')
 
     def test_toroidal_coords(self):
+        """Test toroidal coordinate helper"""
         cs = coords.toroidal_coords()
         assert len(cs.base_symbols()) == 4  # 4 dim space
         assert str(cs) == "CoordSystem(toroidal, Patch(o, Manifold(M, 4)), (t, r, theta, phi))"
@@ -27,6 +29,7 @@ class TestCoords:
         assert str(cs) == "CoordSystem(toroidal, Patch(o, Manifold(M, 2)), (t, r))"
 
     def test_cartesian_coords(self):
+        """Test cartesian coordinate helper"""
         cs = coords.cartesian_coords()
         assert len(cs.base_symbols()) == 4  # 4 dim space
         assert str(cs) == "CoordSystem(cartesian, Patch(o, Manifold(M, 4)), (t, x, y, z))"
@@ -40,20 +43,24 @@ class TestCoordSystem:
     """Test CoordSystem Class"""
 
     def _dummy_cs(self):
+        """Create a dummy CoordSystem"""
         manifold = Manifold('M', 3)
         origin_patch = Patch('o', manifold)
         return coords.CoordSystem('euclidean', origin_patch, ['x', 'y', 'z'])
 
     def test_create(self):
+        """Test creation of CS"""
         cs = self._dummy_cs()
         assert isinstance(cs, coords.CoordSystem)
 
     def test_base_symbols(self):
+        """Test extraction of base symbols"""
         cs = self._dummy_cs()
         coord_syms = cs.base_symbols()
         assert str(coord_syms) == "(x, y, z)"
 
     def test_from_sympy_coordsystem(self):
+        """Test creating from sympy coord system"""
         manifold = Manifold('M', 4)
         origin_patch = Patch('o', manifold)
         sym_cs = _CoordSystem('cartesian', origin_patch, ['x', 'y', 'z'])
@@ -61,6 +68,7 @@ class TestCoordSystem:
         assert isinstance(cs, coords.CoordSystem)
 
     def test_from_twoform(self):
+        """Test from twoform"""
         cs = coords.toroidal_coords(dim=2)
         dt, dr = cs.base_oneforms()
         a, b = symbols('a b')
