@@ -2,6 +2,7 @@
 
 Presently only a dummy test to confirm repo setup and CI integration
 """
+# pylint: disable=protected-access
 import pytest
 from sympy import Function, symbols, Derivative as D, Array
 
@@ -15,7 +16,6 @@ class TestMetric:
     def _dummy_metric(self):
         """Make a dummy metric"""
         cs = coords.toroidal_coords(dim=2)
-        t, r = cs.base_symbols()
         dt, dr = cs.base_oneforms()
         a, b = symbols('a b')
         form = a * tpow(dt, 2) + b * tpow(dr, 2)
@@ -116,23 +116,17 @@ class TestMetricDerivativeSimplification:
         F = Function('F')(t)
         G = Function('G')(t, x)
 
-        F_t = D(F, t)
-        F_tt = D(F_t, t)
-        G_t = D(G, t)
-        G_tt = D(G_t, t)
-        G_tr = D(G_t, x)
-
         form = F ** 2 * tpow(dt, 2) + G ** 2 * tpow(dx, 2)
         g = metric.Metric(twoform=form, components=(F, G))
 
         # Check First-Order Terms
-        assert str(metric.simplify_deriv_notation(F_t, g, max_order=1)) == "F'(t)"
-        assert str(metric.simplify_deriv_notation(F_t, g, max_order=1, use_dots=True)) == r"\dot{F}(t)"
+        assert str(metric.simplify_deriv_notation(D(F, t), g, max_order=1)) == "F'(t)"
+        assert str(metric.simplify_deriv_notation(D(F, t), g, max_order=1, use_dots=True)) == r"\dot{F}(t)"
 
         # Check Second-Order Pure Terms
-        assert str(metric.simplify_deriv_notation(F_tt, g, max_order=2)) == "F''(t)"
-        assert str(metric.simplify_deriv_notation(F_tt, g, max_order=2, use_dots=True)) == r"\ddot{F}(t)"
+        assert str(metric.simplify_deriv_notation(D(D(F, t), t), g, max_order=2)) == "F''(t)"
+        assert str(metric.simplify_deriv_notation(D(D(F, t), t), g, max_order=2, use_dots=True)) == r"\ddot{F}(t)"
 
         # Check Second-Order Mixed Terms
-        assert str(metric.simplify_deriv_notation(G_tt, g, max_order=2)) == "G_{t t}(t, x)"
-        assert str(metric.simplify_deriv_notation(G_tr, g, max_order=2)) == "G_{t x}(t, x)"
+        assert str(metric.simplify_deriv_notation(D(D(G, t), t), g, max_order=2)) == "G_{t t}(t, x)"
+        assert str(metric.simplify_deriv_notation(D(D(G, t), x), g, max_order=2)) == "G_{t x}(t, x)"

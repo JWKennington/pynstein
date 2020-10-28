@@ -1,4 +1,5 @@
 """Unittests for collapse.symbolic.constants module"""
+# pylint: disable=protected-access
 import pytest
 from astropy import constants as astro_constants
 from sympy import symbols
@@ -46,7 +47,7 @@ class TestConstants:
 
     def test_create(self):
         """Test Create ConstantSymbol"""
-        x = constants.ConstantSymbol(astro_constants.e)
+        _ = constants.ConstantSymbol(astro_constants.e)
         _ = constants.ConstantSymbol(astro_constants.e, is_natural_unit=True)
 
     def test_predefined_constants(self):

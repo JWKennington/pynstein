@@ -1,5 +1,5 @@
 """Unittests for collapse.symbolic.constants module"""
-
+# pylint: disable=protected-access
 from sympy import symbols
 from sympy.diffgeom import CoordSystem as _CoordSystem, Manifold, Patch
 

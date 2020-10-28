@@ -1,3 +1,4 @@
+"""Package-level information"""
 __MAJOR__ = 0
 __MINOR__ = 0
 __MICRO__ = 2

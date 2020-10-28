@@ -1,6 +1,5 @@
 """Unittests for the Symbolic Curvature Module
 """
-
 import pytest
 
 from collapse.symbolic import curvature, metric

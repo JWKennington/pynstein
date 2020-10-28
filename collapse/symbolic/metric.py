@@ -128,7 +128,7 @@ def _deriv_simplify_rule(component: Function, variables: Union[Expr, Tuple[Expr,
         variables = (variables,)
     args = component.args
     order = len(variables)
-    key = functools.reduce(lambda a, b: D(a, b), (component,) + variables)
+    key = functools.reduce(D, (component,) + variables)
 
     if any(v not in args for v in variables):  # check against simplified
         return (key, 0)

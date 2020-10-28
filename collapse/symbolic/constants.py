@@ -93,7 +93,7 @@ class ConstantSymbol(Symbol):
         """Safe attr access for constant.unit"""
         return self.constant.unit
 
-    def is_constant(self, *wrt, **flags):
+    def is_constant(self):
         """Override this method to instantly return True"""
         return True
 
