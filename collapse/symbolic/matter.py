@@ -7,7 +7,7 @@ from sympy.matrices import diag
 from collapse.symbolic.metric import Metric
 
 
-def perfect_fluid_stress_energy(metric: Metric) -> Array:
+def perfect_fluid_stress_energy(metric: Metric, fluid_velocity = None) -> Array:
     """Compute the stress energy tensor for a perfect fluid in a given metric
 
     Args:
@@ -19,4 +19,4 @@ def perfect_fluid_stress_energy(metric: Metric) -> Array:
     """
     p, rho = symbols('p rho')
     dim = metric.coord_system.dim
-    return (p + rho) * diag(*[1, 0, 0, 0][:dim]) + p * metric.inverse.matrix
+    return (p + rho) * diag(*[1, 0, 0, 0][:dim]) + p * metric.matrix
