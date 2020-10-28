@@ -70,6 +70,9 @@ class TestConstants:
         c = constants.c
         assert repr(c.natural) == "<Quantity 1.>"
 
+        with pytest.raises(NotImplementedError):
+            constants.h.natural
+
     def test_constant_symbol_si(self):
         """Test class attrs - si"""
         c = constants.c
@@ -106,6 +109,9 @@ class TestConstantSubs:
         """Test helper function for sub"""
         expr = self._dummy_expr()
         subd = constants._subs_const_values(expr, UnitSystem.SI)
+        assert repr(subd) == "599584916.0*x + 44948533928.6517*y"
+
+        subd = constants._subs_const_values(expr, 'si')
         assert repr(subd) == "599584916.0*x + 44948533928.6517*y"
 
     def test_subs_si(self):

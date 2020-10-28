@@ -21,6 +21,11 @@ class TestMetric:
         form = a * tpow(dt, 2) + b * tpow(dr, 2)
         return metric.Metric(twoform=form, components=(a, b))
 
+    def test_create_wrong(self):
+        """Test Create wrong"""
+        with pytest.raises(ValueError):
+            metric.Metric()
+
     def test_create_from_twoform(self):
         """Test creation from a twoform"""
         g = self._dummy_metric()
