@@ -124,7 +124,7 @@ g5
 
 ```python
 # Now use the matter module to create the stress energy tensor for perfect fluid
-T = matter.perfect_fluid_stress_energy(g5)
+T = matter.perfect_fluid(g5)
 T
 ```
 <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left[\begin{matrix}p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left[\begin{matrix}p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" title="\large \left[\begin{matrix}p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]" /></a>
@@ -139,7 +139,7 @@ curvature.einstein_tensor_component(0, 0, g5).doit()
 ```python
 # Note that in the limit Q -> 1
 g5_lim = g5.subs({Q: 1})
-T_lim = matter.perfect_fluid_stress_energy(g5_lim)
+T_lim = matter.perfect_fluid(g5_lim)
 T_lim
 ```
 <a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left[\begin{matrix}\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left[\begin{matrix}\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" title="\large \left[\begin{matrix}\rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]" /></a>

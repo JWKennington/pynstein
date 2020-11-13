@@ -4,13 +4,13 @@ This module largely serves as a convenience wrapper around the matter and curvat
 in that it equates those quantities for fixed components.
 """
 
-from sympy import Equality, Expr, pi
+from sympy import Equality, Expr, pi, Matrix
 
 from collapse.symbolic import constants, curvature, matter
 from collapse.symbolic.metric import Metric
 
 
-def einstein_equation(mu: int, nu: int, metric: Metric) -> Expr:
+def einstein_equation(mu: int, nu: int, metric: Metric, stress_energy: Matrix = None) -> Expr:
     """Compute the einstein equation for coordinates mu and nu. Note that
     this function assumes a perfect fluid for the matter component. In future work
     this component will be modular.
@@ -26,6 +26,8 @@ def einstein_equation(mu: int, nu: int, metric: Metric) -> Expr:
     Returns:
         Expr, the Einstein field equation for specific coordinates mu and nu
     """
+    if stress_energy is None:
+        stress_energy = matter.vacuum(metric)
     G_mu_nu = curvature.einstein_tensor_component(mu, nu, metric)
-    T_mu_nu = matter.perfect_fluid_stress_energy(metric)[mu, nu]
+    T_mu_nu = stress_energy[mu, nu]
     return Equality(G_mu_nu, (8 * pi * constants.G / constants.c ** 4) * T_mu_nu)

@@ -2,12 +2,26 @@
 """
 
 from sympy import Array, symbols
-from sympy.matrices import diag
+from sympy.matrices import diag, zeros
 
 from collapse.symbolic.metric import Metric
 
 
-def perfect_fluid_stress_energy(metric: Metric, fluid_velocity = None) -> Array:
+def vacuum(metric: Metric) -> Array:
+    """Compute the stress energy tensor for a vacuum (zeros)
+
+    Args:
+        metric:
+            Metric
+
+    Returns:
+        Array, the full stress energy tensor as a matrix
+    """
+    dim = metric.coord_system.dim
+    return zeros(dim, dim)
+
+
+def perfect_fluid(metric: Metric, fluid_velocity=None) -> Array:
     """Compute the stress energy tensor for a perfect fluid in a given metric
 
     Args:
