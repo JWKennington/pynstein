@@ -20,7 +20,8 @@ class Metric:
     created from and converted to both twoform notation and matrix notation given a coordinate system.
     """
 
-    def __init__(self, twoform: Expr = None, matrix: Array = None, coord_system: coords.CoordSystem = None, components: Tuple[Expr, ...] = None):
+    def __init__(self, twoform: Expr = None, matrix: Array = None, coord_system: coords.CoordSystem = None,
+                 components: Tuple[Expr, ...] = None):
         """Create a Metric"""
         if twoform is None and matrix is None:
             raise ValueError('Must specify either twoform or matrix to produce metric')
@@ -78,7 +79,7 @@ class Metric:
                       components=tuple(c for c in self.components if not c.subs(*args, **kwargs).doit().is_constant()))
 
 
-def general_inhomogeneous_isotropic_metric(use_natural_units: bool = True):
+def general_inhomogeneous_isotropic(use_natural_units: bool = True):
     """Utility for constructing a general inhomogeneous, but still isotropic, metric (GIIM). The metric
     components M, N, L, S all depend on time and radius, but not theta or phi (hence isotropy).
 
@@ -103,10 +104,10 @@ def general_inhomogeneous_isotropic_metric(use_natural_units: bool = True):
     return Metric(twoform=form, components=(M, N, L, S))
 
 
-giim_metric = general_inhomogeneous_isotropic_metric  # shorthand for conventional names
+gii = general_inhomogeneous_isotropic  # shorthand for conventional names
 
 
-def friedmann_lemaitre_roberston_walker_metric():
+def friedmann_lemaitre_roberston_walker(cartesian: bool = False):
     """Utility for constructing the FLRW metric in terms of a unit lapse and general
     scale function `a`.
 
@@ -124,7 +125,7 @@ def friedmann_lemaitre_roberston_walker_metric():
     return Metric(twoform=form, components=(a,))
 
 
-flrw_metric = friedmann_lemaitre_roberston_walker_metric  # shorthand for conventional names
+flrw = friedmann_lemaitre_roberston_walker  # shorthand for conventional names
 
 
 def _deriv_simplify_rule(component: Function, variables: Union[Expr, Tuple[Expr, ...]], use_dots: bool = False):
@@ -168,6 +169,7 @@ def simplify_deriv_notation(expr: Expr, metric: Metric, max_order: int = 2, use_
     variables = metric.coord_system.base_symbols()
     rules = []
     for n in range(1, max_order + 1):
-        n_order_rules = [_deriv_simplify_rule(c, vs, use_dots=use_dots) for c, vs in itertools.product(components, itertools.product(*(n * [variables])))]
+        n_order_rules = [_deriv_simplify_rule(c, vs, use_dots=use_dots) for c, vs in
+                         itertools.product(components, itertools.product(*(n * [variables])))]
         rules.extend(n_order_rules)
     return expr.subs(dict(rules))

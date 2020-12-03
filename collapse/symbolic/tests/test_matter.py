@@ -12,7 +12,7 @@ class TestMatter:
     @pytest.fixture(scope='class', autouse=True)
     def met(self):
         """Make metric for other tests"""
-        return metric.flrw_metric()
+        return metric.flrw()
 
     def test_vacuum(self, met):
         """Test T_mn"""

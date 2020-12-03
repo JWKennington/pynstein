@@ -22,7 +22,7 @@ The `collapse` package makes use of `sympy` to compute symbolic curvature equati
 ```python
 # Load the predefined FLRW metric
 from collapse.symbolic import metric, gravity
-flrw = metric.flrw_metric().subs({'c': 1})
+flrw = metric.flrw().subs({'c': 1})
 flrw
 ```
 

@@ -12,7 +12,7 @@ class TestGravity:
     @pytest.fixture(scope='class', autouse=True)
     def met(self):
         """Make metric for other tests"""
-        return metric.flrw_metric()
+        return metric.flrw()
 
     def test_einstein_equation(self, met):
         """Test G_mn = T_mn"""

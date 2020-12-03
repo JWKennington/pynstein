@@ -11,7 +11,7 @@ class TestCurvature:
     @pytest.fixture(scope='class', autouse=True)
     def met(self):
         """Make metric for other tests"""
-        return metric.flrw_metric()
+        return metric.flrw()
 
     def test_christoffel_symbol_component(self, met):
         """Test G_mn^l"""

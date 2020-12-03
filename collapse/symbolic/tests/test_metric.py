@@ -85,14 +85,14 @@ class TestPredefinedMetrics:
 
     def test_gim(self):
         """Test Predefined GIM metric"""
-        assert repr(metric.general_inhomogeneous_isotropic_metric()) == ('-c**2*N(t, r)**2*TensorProduct(dt, dt) + L(t, r)**2*TensorProduct(c*M(t, '
+        assert repr(metric.general_inhomogeneous_isotropic()) == ('-c**2*N(t, r)**2*TensorProduct(dt, dt) + L(t, r)**2*TensorProduct(c*M(t, '
                                                                'r)*dt + dr, c*M(t, r)*dt + dr) + S(t, '
                                                                'r)**2*(sin(theta)**2*TensorProduct(dphi, dphi) + TensorProduct(dtheta, '
                                                                'dtheta))')
 
     def test_flrw(self):
         """Test Predefined FLRW metric"""
-        assert repr(metric.flrw_metric()) == ('-c**2*TensorProduct(dt, dt) + a(t)*(TensorProduct(dx, dx) + '
+        assert repr(metric.flrw()) == ('-c**2*TensorProduct(dt, dt) + a(t)*(TensorProduct(dx, dx) + '
                                               'TensorProduct(dy, dy) + TensorProduct(dz, dz))')
 
 
