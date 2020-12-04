@@ -3,9 +3,11 @@
 import functools
 from typing import Tuple
 
-from sympy import Rational, Expr, Matrix
+from sympy import Rational, Expr, Matrix, simplify
 from sympy.diffgeom import TensorProduct
 from sympy.tensor.tensor import Tensor
+
+from collapse.symbolic import constants
 
 
 def tensor_pow(x: Tensor, n: int) -> Tensor:
@@ -37,3 +39,18 @@ def matrix_to_twoform(matrix: Matrix, base_forms: Tuple[Expr, ...]) -> Expr:
     """
     return sum([(1 if i == j else Rational(1, 2)) * TensorProduct(dx_i, dx_j) * matrix[i, j]
                 for i, dx_i in enumerate(base_forms) for j, dx_j in enumerate(base_forms)])
+
+
+def clean_expr(e: Expr, natural: bool = True) -> Expr:
+    """Helper function to compute clean expression
+
+    Args:
+        e:
+            Expr, expression to clean
+
+    Returns:
+        Expr, cleaned expression
+    """
+    if natural:
+        e = constants.subs_natural(e)
+    return simplify(e.doit())
