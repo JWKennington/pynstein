@@ -8,6 +8,7 @@ class TestSymbols:
     """Test Symbols"""
 
     def test_numeric_symbol(self):
+        """Test numeric symbol"""
         a = symbols.numeric_symbol('a')
         assert str(a) == 'a'
         assert a._assumptions == symbols.DEFAULT_NUMERIC_ASSUMPTIONS

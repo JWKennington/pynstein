@@ -25,6 +25,7 @@ class TestUtilities:
         assert repr(form) == "a**2*TensorProduct(dt, dt) + b**2*TensorProduct(dx, dx)"
 
     def test_clean_expr(self):
+        """Test"""
         a, b, c = symbols('a b c')
         f = Function('f')(a, b)
         g = Derivative(f, a) + Derivative(f, c)
