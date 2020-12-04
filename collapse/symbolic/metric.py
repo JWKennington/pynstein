@@ -94,6 +94,39 @@ def minkowski():
     return Metric(twoform=form)
 
 
+def friedmann_lemaitre_roberston_walker(curvature_constant: Symbol = symbols.k, cartesian: bool = False):
+    """Utility for constructing the FLRW metric in terms of a unit lapse and general
+    scale function `a`.
+
+    Args:
+        curvature_constant:
+            Symbol, default "k", the curvature parameter in reduced polar coordinates
+        cartesian:
+            bool, default False. If true create a cartesian FLRW and ignore curvature_constant argument
+
+    Returns:
+        Metric, the FLRW metric
+
+    References:
+        [1] S. Weinberg, Cosmology (Oxford University Press, Oxford ; New York, 2008).
+    """
+    a = Function('a')(symbols.t)
+    if cartesian:
+        cs = coords.cartesian_coords()
+        dt, dx, dy, dz = cs.base_oneforms()
+        form = - c ** 2 * tpow(dt, 2) + a ** 2 * (tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2))
+    else:
+        cs = coords.toroidal_coords()
+        t, r, theta, phi = cs.base_symbols()
+        dt, dr, dtheta, dphi = cs.base_oneforms()
+        dSigmaSq = 1 / (1 - curvature_constant * r ** 2) * tpow(dr, 2) + r ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2))
+        form = - c ** 2 * tpow(dt, 2) + a ** 2 * dSigmaSq
+    return Metric(twoform=form, components=(a,))
+
+
+flrw = friedmann_lemaitre_roberston_walker  # shorthand for conventional names
+
+
 def general_inhomogeneous_isotropic(use_natural_units: bool = True):
     """Utility for constructing a general inhomogeneous, but still isotropic, metric (GIIM). The metric
     components M, N, L, S all depend on time and radius, but not theta or phi (hence isotropy).
@@ -120,39 +153,6 @@ def general_inhomogeneous_isotropic(use_natural_units: bool = True):
 
 
 gii = general_inhomogeneous_isotropic  # shorthand for conventional names
-
-
-def friedmann_lemaitre_roberston_walker(curvature_constant: Symbol = symbols.k, cartesian: bool = False):
-    """Utility for constructing the FLRW metric in terms of a unit lapse and general
-    scale function `a`.
-
-    Args:
-        curvature_constant:
-            Symbol, default "k", the curvature parameter in reduced polar coordinates
-        cartesian:
-            bool, default False. If true create a cartesian FLRW and ignore curvature_constant argument
-
-    Returns:
-        Metric, the FLRW metric
-
-    References:
-        [1] S. Weinberg, Cosmology (Oxford University Press, Oxford ; New York, 2008).
-    """
-    a = Function('a')(symbols.t)
-    if cartesian:
-        cs = coords.cartesian_coords()
-        dt, dx, dy, dz = cs.base_oneforms()
-        form = - c ** 2 * tpow(dt, 2) + a * (tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2))
-    else:
-        cs = coords.toroidal_coords()
-        t, r, theta, phi = cs.base_symbols()
-        dt, dr, dtheta, dphi = cs.base_oneforms()
-        dSigmaSq = 1 / (1 - curvature_constant * r ** 2) * tpow(dr, 2) + r ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2))
-        form = - c ** 2 * tpow(dt, 2) + a ** 2 * dSigmaSq
-    return Metric(twoform=form, components=(a,))
-
-
-flrw = friedmann_lemaitre_roberston_walker  # shorthand for conventional names
 
 
 def _deriv_simplify_rule(component: Function, variables: Union[Expr, Tuple[Expr, ...]], use_dots: bool = False):
