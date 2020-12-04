@@ -36,15 +36,15 @@ def christoffel_symbol_component(lam: int, mu: int, nu: int, metric: Metric) -> 
     I = metric.inverse.matrix
     coord_symbols = metric.coord_system.base_symbols()
     dim = len(coord_symbols)
-    return Rational(1 / 2) * sum([I[lam, sig] * (D(M[nu, sig], coord_symbols[mu]) +
-                                                 D(M[sig, mu], coord_symbols[nu]) -
-                                                 D(M[mu, nu], coord_symbols[sig])) for sig in range(dim)])
+    return Rational(1, 2) * sum([I[lam, sig] * (D(M[nu, sig], coord_symbols[mu]) +
+                                                D(M[sig, mu], coord_symbols[nu]) -
+                                                D(M[mu, nu], coord_symbols[sig])) for sig in range(dim)])
 
 
 def riemann_tensor_component(rho: int, sig: int, mu: int, nu: int, metric: Metric) -> Expr:
     """Compute a component of the Riemann Tensor for a particular metric corresponding to
 
-        R_s^r_mn = p_m G_ns^r - p_n G_ms^r + G_ml^r G_ns^l - G_nl^r G_ms^l
+        R^r_smn = p_m G_ns^r - p_n G_ms^r + G_ml^r G_ns^l - G_nl^r G_ms^l
 
     Args:
         rho:
@@ -59,12 +59,17 @@ def riemann_tensor_component(rho: int, sig: int, mu: int, nu: int, metric: Metri
             Metric
 
     Returns:
-        Expression of the R_s^r_mn
+        Expression of the R^r_smn
     """
-    G = lambda lam, mu, nu: christoffel_symbol_component(lam, mu, nu, metric)
+
+    def G(l, m, n):
+        """Shorthand"""
+        return christoffel_symbol_component(l, m, n, metric)
+
     coord_symbols = metric.coord_system.base_symbols()
     dim = len(coord_symbols)
-    return D(G(rho, nu, sig), coord_symbols[mu]) - D(G(rho, mu, sig), coord_symbols[nu]) + \
+    return D(G(rho, nu, sig), coord_symbols[mu]) - \
+           D(G(rho, mu, sig), coord_symbols[nu]) + \
            sum([G(rho, mu, lam) * G(lam, nu, sig) for lam in range(dim)]) - \
            sum([G(rho, nu, lam) * G(lam, mu, sig) for lam in range(dim)])
 
@@ -85,7 +90,11 @@ def ricci_tensor_component(mu: int, nu: int, metric: Metric):
     Returns:
         Expression of the R_mn
     """
-    R = lambda r, s, m, n: riemann_tensor_component(r, s, m, n, metric=metric)
+
+    def R(r, s, m, n):
+        """Shorthand"""
+        return riemann_tensor_component(r, s, m, n, metric=metric)
+
     return sum([R(lam, mu, lam, nu) for lam in range(metric.coord_system.dim)])
 
 
@@ -101,7 +110,8 @@ def ricci_scalar(metric: Metric) -> Expr:
     Returns:
         Expression of R
     """
-    return sum(ricci_tensor_component(lam, lam, metric=metric) for lam in range(metric.coord_system.dim))
+    I = metric.inverse.matrix
+    return sum(sum(I[lam, rho] * ricci_tensor_component(rho, lam, metric=metric) for rho in range(metric.coord_system.dim)) for lam in range(metric.coord_system.dim))
 
 
 def einstein_tensor_component(mu: int, nu: int, metric: Metric):
@@ -120,4 +130,4 @@ def einstein_tensor_component(mu: int, nu: int, metric: Metric):
     Returns:
         Expression of the G_mn
     """
-    return ricci_tensor_component(mu, nu, metric) - Rational(1, 2) * metric.matrix[mu, nu]
+    return ricci_tensor_component(mu, nu, metric) - Rational(1, 2) * ricci_scalar(metric) * metric.matrix[mu, nu]
