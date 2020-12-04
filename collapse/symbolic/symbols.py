@@ -4,21 +4,58 @@ duplicate calls to sympy.symbols and provides unified access to reoccurring symb
 
 from sympy import Symbol as _Symbol
 
+DEFAULT_NUMERIC_ASSUMPTIONS = {
+    # These assumptions are now the default in several places in sympy.diffgeom
+    # Abiding them here helps equality criteria
+    'real': True,
+    'extended_real': True,
+    'imaginary': False,
+    'commutative': True,
+    'infinite': False,
+    'complex': True,
+    'hermitian': True,
+    'finite': True
+}
+
+
+def numeric_symbol(name: str, assumptions: dict = None):
+    """Helper utility for creating a numeric symbol with default
+    assumptions from the sympy.diffgeom subpackage
+
+    Args:
+        name:
+            str, the name
+        assumptions:
+            dict, the assumptions. If None use DEFAULT_NUMERIC_ASSUMPTIONS
+
+    Returns:
+        Symbol
+    """
+    if assumptions is None:
+        assumptions = DEFAULT_NUMERIC_ASSUMPTIONS
+    return _Symbol(name, **assumptions)
+
 
 class CoordinateSymbol:
     """An enumeration of commonly used coordinate symbols"""
-    Time = _Symbol('t')
-    CartesianX = _Symbol('x')
-    CartesianY = _Symbol('y')
-    CartesianZ = _Symbol('z')
-    SphericalRadius = _Symbol('r')
-    SphericalPolarAngle = _Symbol(r'\theta')
-    SphericalAzimuthalAngle = _Symbol(r'\varphi')
+    Time = numeric_symbol('t')
+    CartesianX = numeric_symbol('x')
+    CartesianY = numeric_symbol('y')
+    CartesianZ = numeric_symbol('z')
+    SphericalRadius = numeric_symbol('r')
+    SphericalPolarAngle = numeric_symbol(r'\theta')
+    SphericalAzimuthalAngle = numeric_symbol(r'\varphi')
 
 
 class CurvatureSymbol:
     """An Enumeration of commonly used curvature symbols"""
-    ConstantCurvature = _Symbol('k')
+    ConstantCurvature = numeric_symbol('k')
+
+
+class MatterSymbol:
+    """An Enumeration of commonly used matter symbols"""
+    Density = numeric_symbol(r'\rho')
+    Pressure = numeric_symbol('p')
 
 
 # The below are shorthands for the above commonly used symbols
@@ -33,3 +70,6 @@ theta = CoordinateSymbol.SphericalPolarAngle
 phi = CoordinateSymbol.SphericalAzimuthalAngle
 
 k = CurvatureSymbol.ConstantCurvature
+
+rho = MatterSymbol.Density
+p = MatterSymbol.Pressure

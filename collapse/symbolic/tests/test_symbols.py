@@ -7,6 +7,11 @@ from collapse.symbolic import symbols
 class TestSymbols:
     """Test Symbols"""
 
+    def test_numeric_symbol(self):
+        a = symbols.numeric_symbol('a')
+        assert str(a) == 'a'
+        assert a._assumptions == symbols.DEFAULT_NUMERIC_ASSUMPTIONS
+
     def test_coordinate_symbol(self):
         """Test values"""
         assert str(symbols.t) == "t"
@@ -22,3 +27,8 @@ class TestSymbols:
     def test_curvature_symbol(self):
         """Test values"""
         assert str(symbols.k) == "k"
+
+    def test_matter_symbol(self):
+        """Test values"""
+        assert str(symbols.rho) == r'\rho'
+        assert str(symbols.p) == 'p'

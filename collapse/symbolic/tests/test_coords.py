@@ -33,11 +33,11 @@ class TestCoords:
         """Test cartesian coordinate helper"""
         cs = coords.cartesian_coords()
         assert len(cs.base_symbols()) == 4  # 4 dim space
-        assert str(cs) == "CoordSystem(cartesian, Patch(o, Manifold(M, 4)), (t, x, y, z))"
+        assert str(cs) == "cartesian"
 
         cs = coords.cartesian_coords(dim=2)
         assert len(cs.base_symbols()) == 2  # 4 dim space
-        assert str(cs) == "CoordSystem(cartesian, Patch(o, Manifold(M, 2)), (t, x))"
+        assert str(cs) == "cartesian"
 
 
 class TestCoordSystem:

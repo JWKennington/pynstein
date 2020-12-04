@@ -79,6 +79,21 @@ class Metric:
                       components=tuple(c for c in self.components if not c.subs(*args, **kwargs).doit().is_constant()))
 
 
+def minkowski():
+    """Utility for constructing the Minkowski metric
+
+    Returns:
+        Metric, the Minkowski metric for flat space
+
+    References:
+        [1] S. Weinberg, Cosmology (Oxford University Press, Oxford ; New York, 2008).
+    """
+    cs = coords.cartesian_coords()
+    dt, dx, dy, dz = cs.base_oneforms()
+    form = - tpow(dt, 2) + tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2)
+    return Metric(twoform=form)
+
+
 def general_inhomogeneous_isotropic(use_natural_units: bool = True):
     """Utility for constructing a general inhomogeneous, but still isotropic, metric (GIIM). The metric
     components M, N, L, S all depend on time and radius, but not theta or phi (hence isotropy).

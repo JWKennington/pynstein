@@ -22,8 +22,8 @@ class TestMatter:
     def test_perfect_fluid(self, met):
         """Test T_mn"""
         expr = matter.perfect_fluid(met).doit()
-        assert repr(expr) == ('Matrix([\n'
-                              '[p + rho - p/c**2,      0,      0,      0],\n'
-                              '[               0, p/a(t),      0,      0],\n'
-                              '[               0,      0, p/a(t),      0],\n'
-                              '[               0,      0,      0, p/a(t)]])')
+        assert repr(expr) == ('Matrix([\n' +
+                              '[\\rho,      0,      0,      0],\n' +
+                              '[   0, p*a(t),      0,      0],\n' +
+                              '[   0,      0, p*a(t),      0],\n' +
+                              '[   0,      0,      0, p*a(t)]])')
