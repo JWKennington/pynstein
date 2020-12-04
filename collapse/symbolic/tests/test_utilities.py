@@ -1,7 +1,7 @@
 """Unittests for the Symbolic utilities Module
 """
 
-from sympy import symbols, Matrix
+from sympy import symbols, Matrix, Function, Derivative
 
 from collapse.symbolic import utilities, coords
 
@@ -23,3 +23,12 @@ class TestUtilities:
         matrix = Matrix([[a ** 2, 0], [0, b ** 2]])
         form = utilities.matrix_to_twoform(matrix, base_forms)
         assert repr(form) == "a**2*TensorProduct(dt, dt) + b**2*TensorProduct(dx, dx)"
+
+    def test_clean_expr(self):
+        """Test"""
+        a, b, c = symbols('a b c')
+        f = Function('f')(a, b)
+        g = Derivative(f, a) + Derivative(f, c)
+        c = g ** 2 + 1 / b
+        assert str(c) == '(Derivative(f(a, b), a) + Derivative(f(a, b), c))**2 + 1/b'
+        assert str(utilities.clean_expr(c)) == 'Derivative(f(a, b), a)**2 + 1/b'

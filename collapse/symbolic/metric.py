@@ -6,11 +6,11 @@ import functools
 import itertools
 from typing import Tuple, Union
 
-from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matrix
+from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matrix, Symbol
 from sympy.diffgeom import twoform_to_matrix
 from sympy.printing.latex import latex
 
-from collapse.symbolic import coords
+from collapse.symbolic import coords, constants, symbols
 from collapse.symbolic.constants import c
 from collapse.symbolic.utilities import tensor_pow as tpow, matrix_to_twoform
 
@@ -20,7 +20,8 @@ class Metric:
     created from and converted to both twoform notation and matrix notation given a coordinate system.
     """
 
-    def __init__(self, twoform: Expr = None, matrix: Array = None, coord_system: coords.CoordSystem = None, components: Tuple[Expr, ...] = None):
+    def __init__(self, twoform: Expr = None, matrix: Array = None, coord_system: coords.CoordSystem = None,
+                 components: Tuple[Expr, ...] = None):
         """Create a Metric"""
         if twoform is None and matrix is None:
             raise ValueError('Must specify either twoform or matrix to produce metric')
@@ -78,12 +79,59 @@ class Metric:
                       components=tuple(c for c in self.components if not c.subs(*args, **kwargs).doit().is_constant()))
 
 
-def general_inhomogeneous_metric():
-    """Utility for constructing a general inhomogeneous, but still isotropic, metric. The metric
+def minkowski():
+    """Utility for constructing the Minkowski metric
+
+    Returns:
+        Metric, the Minkowski metric for flat space
+
+    References:
+        [1] S. Weinberg, Cosmology (Oxford University Press, Oxford ; New York, 2008).
+    """
+    cs = coords.cartesian_coords()
+    dt, dx, dy, dz = cs.base_oneforms()
+    form = - tpow(dt, 2) + tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2)
+    return Metric(twoform=form)
+
+
+def friedmann_lemaitre_roberston_walker(curvature_constant: Symbol = symbols.k, cartesian: bool = False):
+    """Utility for constructing the FLRW metric in terms of a unit lapse and general
+    scale function `a`.
+
+    Args:
+        curvature_constant:
+            Symbol, default "k", the curvature parameter in reduced polar coordinates
+        cartesian:
+            bool, default False. If true create a cartesian FLRW and ignore curvature_constant argument
+
+    Returns:
+        Metric, the FLRW metric
+
+    References:
+        [1] S. Weinberg, Cosmology (Oxford University Press, Oxford ; New York, 2008).
+    """
+    a = Function('a')(symbols.t)
+    if cartesian:
+        cs = coords.cartesian_coords()
+        dt, dx, dy, dz = cs.base_oneforms()
+        form = - c ** 2 * tpow(dt, 2) + a ** 2 * (tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2))
+    else:
+        cs = coords.toroidal_coords()
+        _, r, theta, _ = cs.base_symbols()
+        dt, dr, dtheta, dphi = cs.base_oneforms()
+        form = - c ** 2 * tpow(dt, 2) + a ** 2 * (1 / (1 - curvature_constant * r ** 2) * tpow(dr, 2) + r ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2)))
+    return Metric(twoform=form, components=(a,))
+
+
+flrw = friedmann_lemaitre_roberston_walker  # shorthand for conventional names
+
+
+def general_inhomogeneous_isotropic(use_natural_units: bool = True):
+    """Utility for constructing a general inhomogeneous, but still isotropic, metric (GIIM). The metric
     components M, N, L, S all depend on time and radius, but not theta or phi (hence isotropy).
 
     Returns:
-        Metric, the GIM metric
+        Metric, the GIIM metric
     """
     cs = coords.toroidal_coords()
     t, r, theta, _ = cs.base_symbols()
@@ -98,28 +146,12 @@ def general_inhomogeneous_metric():
     form = - c ** 2 * N ** 2 * tpow(dt, 2) + \
            L ** 2 * tpow(dr + c * M * dt, 2) + \
            S ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2))
+    if use_natural_units:
+        form = constants.subs_natural(form)
     return Metric(twoform=form, components=(M, N, L, S))
 
 
-def friedmann_lemaitre_roberston_walker_metric():
-    """Utility for constructing the FLRW metric in terms of a unit lapse and general
-    scale function `a`.
-
-    Returns:
-        Metric, the FLRW metric
-
-    References:
-        [1] S. Weinberg, Cosmology (Oxford University Press, Oxford ; New York, 2008).
-    """
-    cs = coords.cartesian_coords()
-    t, *_ = cs.base_symbols()
-    dt, dx, dy, dz = cs.base_oneforms()
-    a = Function('a')(t)
-    form = - c ** 2 * tpow(dt, 2) + a * (tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2))
-    return Metric(twoform=form, components=(a,))
-
-
-flrw_metric = friedmann_lemaitre_roberston_walker_metric  # shorthand for conventional names
+gii = general_inhomogeneous_isotropic  # shorthand for conventional names
 
 
 def _deriv_simplify_rule(component: Function, variables: Union[Expr, Tuple[Expr, ...]], use_dots: bool = False):
@@ -163,6 +195,7 @@ def simplify_deriv_notation(expr: Expr, metric: Metric, max_order: int = 2, use_
     variables = metric.coord_system.base_symbols()
     rules = []
     for n in range(1, max_order + 1):
-        n_order_rules = [_deriv_simplify_rule(c, vs, use_dots=use_dots) for c, vs in itertools.product(components, itertools.product(*(n * [variables])))]
+        n_order_rules = [_deriv_simplify_rule(c, vs, use_dots=use_dots) for c, vs in
+                         itertools.product(components, itertools.product(*(n * [variables])))]
         rules.extend(n_order_rules)
     return expr.subs(dict(rules))

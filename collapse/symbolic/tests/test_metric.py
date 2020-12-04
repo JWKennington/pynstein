@@ -83,17 +83,30 @@ class TestMetric:
 class TestPredefinedMetrics:
     """Test predefined metrics"""
 
+    def test_minkowski(self):
+        """Test Predefined FLRW metric"""
+        assert repr(metric.minkowski()) == ('-TensorProduct(dt, dt) + TensorProduct(dx, dx) + TensorProduct(dy, dy) + '
+                                            'TensorProduct(dz, dz)')
+
     def test_gim(self):
         """Test Predefined GIM metric"""
-        assert repr(metric.general_inhomogeneous_metric()) == ('-c**2*N(t, r)**2*TensorProduct(dt, dt) + L(t, r)**2*TensorProduct(c*M(t, '
-                                                               'r)*dt + dr, c*M(t, r)*dt + dr) + S(t, '
-                                                               'r)**2*(sin(theta)**2*TensorProduct(dphi, dphi) + TensorProduct(dtheta, '
-                                                               'dtheta))')
+        assert repr(metric.general_inhomogeneous_isotropic()) == ('L(t, r)**2*TensorProduct(M(t, r)*dt + dr, M(t, r)*dt + dr) - N(t, '
+                                                                  'r)**2*TensorProduct(dt, dt) + S(t, '
+                                                                  'r)**2*(sin(\\theta)**2*TensorProduct(d\\varphi, d\\varphi) + '
+                                                                  'TensorProduct(d\\theta, d\\theta))')
 
     def test_flrw(self):
         """Test Predefined FLRW metric"""
-        assert repr(metric.flrw_metric()) == ('-c**2*TensorProduct(dt, dt) + a(t)*(TensorProduct(dx, dx) + '
-                                              'TensorProduct(dy, dy) + TensorProduct(dz, dz))')
+        assert repr(metric.flrw(cartesian=True)) == ('-c**2*TensorProduct(dt, dt) + a(t)**2*(TensorProduct(dx, dx) + '
+                                                     'TensorProduct(dy, dy) + TensorProduct(dz, dz))')
+
+        assert repr(metric.flrw()) == ('-c**2*TensorProduct(dt, dt) + '
+                                       'a(t)**2*(r**2*(sin(\\theta)**2*TensorProduct(d\\varphi, d\\varphi) + '
+                                       'TensorProduct(d\\theta, d\\theta)) + TensorProduct(dr, dr)/(-k*r**2 + 1))')
+
+        assert repr(metric.flrw(curvature_constant=1)) == ('-c**2*TensorProduct(dt, dt) + '
+                                                           'a(t)**2*(r**2*(sin(\\theta)**2*TensorProduct(d\\varphi, d\\varphi) + '
+                                                           'TensorProduct(d\\theta, d\\theta)) + TensorProduct(dr, dr)/(1 - r**2))')
 
 
 class TestMetricDerivativeSimplification:

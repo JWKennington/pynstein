@@ -80,7 +80,7 @@ class ConstantSymbol(Symbol):
     def natural(self):
         """Pass-thru accessor to constant value in Natural units"""
         if self._is_natural_unit:
-            return Quantity(NATURAL_VALUE)
+            return Quantity(NATURAL_VALUE, dtype=int)
         raise NotImplementedError('Natural units conversion not yet supported')
 
     @property

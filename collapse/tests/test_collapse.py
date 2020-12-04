@@ -14,7 +14,7 @@ class TestCollapse:
 
     def test_package_version(self):
         """Consistency test for version numbers"""
-        exp = (0, 1, 0)
+        exp = (0, 2, 0)
         msg = 'Collapse Package {comp} Version Mismatch: Expected {exp:d}, got {got:d}'
         assert collapse.__MAJOR__ == exp[0], msg.format(comp='MAJOR', exp=exp[0], got=collapse.__MAJOR__)
         assert collapse.__MINOR__ == exp[1], msg.format(comp='MINOR', exp=exp[1], got=collapse.__MINOR__)

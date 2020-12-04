@@ -3,7 +3,8 @@
 
 import pytest
 
-from collapse.symbolic import gravity, metric
+from collapse.symbolic import gravity, metric, matter
+from collapse.symbolic.utilities import clean_expr
 
 
 class TestGravity:
@@ -12,10 +13,13 @@ class TestGravity:
     @pytest.fixture(scope='class', autouse=True)
     def met(self):
         """Make metric for other tests"""
-        return metric.flrw_metric()
+        return metric.flrw()
 
     def test_einstein_equation(self, met):
         """Test G_mn = T_mn"""
-        expr = gravity.einstein_equation(0, 0, met).doit()
-        assert repr(expr) == ('Eq(c**2/2 - 3*Derivative(a(t), (t, 2))/(2*a(t)) + 3*Derivative(a(t), '
-                              't)**2/(4*a(t)**2), p + rho - p/c**2)')
+        se = matter.perfect_fluid(met)
+        expr = gravity.einstein_equation(0, 0, met, stress_energy=se).doit()
+        assert repr(clean_expr(expr)) == 'Eq(8*pi*\\rho, 3*(k + Derivative(a(t), t)**2)/a(t)**2)'
+
+        expr = gravity.einstein_equation(0, 0, met, stress_energy=None).doit()
+        assert repr(clean_expr(expr)) == 'Eq(3*(k + Derivative(a(t), t)**2)/a(t)**2, 0)'

@@ -18,6 +18,22 @@ from typing import Tuple
 from sympy import Symbol, Expr
 from sympy.diffgeom import CoordSystem as _CoordSystem, Manifold, Patch
 
+from collapse.symbolic import symbols
+
+CARTESIAN_SPATIAL_SYMBOLS = [
+    symbols.CoordinateSymbol.CartesianX,
+    symbols.CoordinateSymbol.CartesianY,
+    symbols.CoordinateSymbol.CartesianZ,
+]
+CARTESIAN_SYMBOLS = [symbols.CoordinateSymbol.Time] + CARTESIAN_SPATIAL_SYMBOLS
+
+SPHERICAL_SPATIAL_SYMBOLS = [
+    symbols.CoordinateSymbol.SphericalRadius,
+    symbols.CoordinateSymbol.SphericalPolarAngle,
+    symbols.CoordinateSymbol.SphericalAzimuthalAngle,
+]
+SPHERICAL_SYMBOLS = [symbols.CoordinateSymbol.Time] + SPHERICAL_SPATIAL_SYMBOLS
+
 
 def _coord_system_symbols(coord_system: _CoordSystem) -> Tuple[Symbol, ...]:
     """Small utility function for extracting the underlying symbols from a sympy CoordSystem
@@ -29,7 +45,8 @@ def _coord_system_symbols(coord_system: _CoordSystem) -> Tuple[Symbol, ...]:
     Returns:
         Tuple[Symbol,...] a tuple of symbols representing the ordered coordinates of the system
     """
-    return coord_system.args[-1]
+    args = coord_system.args
+    return args[2]
 
 
 class CoordSystem(_CoordSystem):
@@ -51,9 +68,9 @@ class CoordSystem(_CoordSystem):
     @staticmethod
     def from_sympy_coordsystem(coord_system: _CoordSystem):
         """Create a CoordSystem from a sympy.diffgeom.CoordSystem"""
-        return CoordSystem(name=coord_system.name,
-                           patch=coord_system.patch,
-                           names=coord_system._names) # pylint: disable=protected-access
+        return CoordSystem(name=coord_system.args[0],
+                           patch=coord_system.args[1],
+                           names=coord_system.args[2])  # pylint: disable=protected-access
 
     @staticmethod
     def from_twoform(twoform: Expr):
@@ -81,7 +98,7 @@ def toroidal_coords(manifold: Manifold = None, dim: int = 4):
     if manifold is None:
         manifold = Manifold('M', dim)
     origin_patch = Patch('o', manifold)
-    return CoordSystem('toroidal', origin_patch, ['t', 'r', 'theta', 'phi'][:dim])
+    return CoordSystem('toroidal', origin_patch, SPHERICAL_SYMBOLS[:dim])
 
 
 def cartesian_coords(manifold: Manifold = None, dim: int = 4):
@@ -101,4 +118,4 @@ def cartesian_coords(manifold: Manifold = None, dim: int = 4):
     if manifold is None:
         manifold = Manifold('M', dim)
     origin_patch = Patch('o', manifold)
-    return CoordSystem('cartesian', origin_patch, ['t', 'x', 'y', 'z'][:dim])
+    return CoordSystem('cartesian', origin_patch, CARTESIAN_SYMBOLS[:dim])
