@@ -20,3 +20,6 @@ class TestGravity:
         se = matter.perfect_fluid(met)
         expr = gravity.einstein_equation(0, 0, met, stress_energy=se).doit()
         assert repr(clean_expr(expr)) == 'Eq(8*pi*\\rho, 3*(k + Derivative(a(t), t)**2)/a(t)**2)'
+
+        expr = gravity.einstein_equation(0, 0, met, stress_energy=None).doit()
+        assert repr(clean_expr(expr)) == 'Eq(3*(k + Derivative(a(t), t)**2)/a(t)**2, 0)'

@@ -46,11 +46,7 @@ def _coord_system_symbols(coord_system: _CoordSystem) -> Tuple[Symbol, ...]:
         Tuple[Symbol,...] a tuple of symbols representing the ordered coordinates of the system
     """
     args = coord_system.args
-    if len(args) == 3: # Older implementations
-        return args[-1]
-    if len(args) == 4: # Newer implementation
-        return args[-2]
-    raise ValueError('Unable to extract coord system symbols from args: {}'.format(str(args)))
+    return args[2]
 
 
 class CoordSystem(_CoordSystem):
