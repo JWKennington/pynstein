@@ -14,7 +14,8 @@ class TestCoords:
         """Test coord symbol extraction"""
         manifold = Manifold('M', 4)
         origin_patch = Patch('o', manifold)
-        sym_cs = _CoordSystem('cartesian', origin_patch, ['x', 'y', 'z'])
+        x, y, z = symbols('x y z')
+        sym_cs = _CoordSystem('cartesian', origin_patch, [x, y, z])
         sym_cs_symbols = coords._coord_system_symbols(sym_cs)
         assert sym_cs_symbols == symbols('x y z')
 
@@ -22,11 +23,11 @@ class TestCoords:
         """Test toroidal coordinate helper"""
         cs = coords.toroidal_coords()
         assert len(cs.base_symbols()) == 4  # 4 dim space
-        assert str(cs) == "CoordSystem(toroidal, Patch(o, Manifold(M, 4)), (t, r, theta, phi))"
+        assert str(cs) == "toroidal"
 
         cs = coords.toroidal_coords(dim=2)
         assert len(cs.base_symbols()) == 2  # 4 dim space
-        assert str(cs) == "CoordSystem(toroidal, Patch(o, Manifold(M, 2)), (t, r))"
+        assert str(cs) == "toroidal"
 
     def test_cartesian_coords(self):
         """Test cartesian coordinate helper"""
