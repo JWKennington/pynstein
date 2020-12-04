@@ -6,11 +6,11 @@ import functools
 import itertools
 from typing import Tuple, Union
 
-from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matrix
+from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matrix, Symbol
 from sympy.diffgeom import twoform_to_matrix
 from sympy.printing.latex import latex
 
-from collapse.symbolic import coords, constants
+from collapse.symbolic import coords, constants, symbols
 from collapse.symbolic.constants import c
 from collapse.symbolic.utilities import tensor_pow as tpow, matrix_to_twoform
 
@@ -122,9 +122,15 @@ def general_inhomogeneous_isotropic(use_natural_units: bool = True):
 gii = general_inhomogeneous_isotropic  # shorthand for conventional names
 
 
-def friedmann_lemaitre_roberston_walker(cartesian: bool = False):
+def friedmann_lemaitre_roberston_walker(curvature_constant: Symbol = symbols.k, cartesian: bool = False):
     """Utility for constructing the FLRW metric in terms of a unit lapse and general
     scale function `a`.
+
+    Args:
+        curvature_constant:
+            Symbol, default "k", the curvature parameter in reduced polar coordinates
+        cartesian:
+            bool, default False. If true create a cartesian FLRW and ignore curvature_constant argument
 
     Returns:
         Metric, the FLRW metric
@@ -132,11 +138,17 @@ def friedmann_lemaitre_roberston_walker(cartesian: bool = False):
     References:
         [1] S. Weinberg, Cosmology (Oxford University Press, Oxford ; New York, 2008).
     """
-    cs = coords.cartesian_coords()
-    t, *_ = cs.base_symbols()
-    dt, dx, dy, dz = cs.base_oneforms()
-    a = Function('a')(t)
-    form = - c ** 2 * tpow(dt, 2) + a * (tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2))
+    a = Function('a')(symbols.t)
+    if cartesian:
+        cs = coords.cartesian_coords()
+        dt, dx, dy, dz = cs.base_oneforms()
+        form = - c ** 2 * tpow(dt, 2) + a * (tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2))
+    else:
+        cs = coords.toroidal_coords()
+        t, r, theta, phi = cs.base_symbols()
+        dt, dr, dtheta, dphi = cs.base_oneforms()
+        dSigmaSq = 1 / (1 - curvature_constant * r ** 2) * tpow(dr, 2) + r ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2))
+        form = - c ** 2 * tpow(dt, 2) + a ** 2 * dSigmaSq
     return Metric(twoform=form, components=(a,))
 
 
