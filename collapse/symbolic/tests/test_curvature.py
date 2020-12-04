@@ -17,30 +17,27 @@ class TestCurvature:
     def test_christoffel_symbol_component(self, met):
         """Test G_mn^l"""
         expr = curvature.christoffel_symbol_component(0, 1, 1, met).doit()
-        assert repr(expr) == "Derivative(a(t), t)/(2*c**2)"
+        assert repr(expr) == 'a(t)*Derivative(a(t), t)/c**2'
 
     def test_riemann_tensor_component(self, met):
         """Test R_s^r_mn"""
         expr = curvature.riemann_tensor_component(0, 1, 0, 1, met).doit()
-        assert repr(expr) == "Derivative(a(t), (t, 2))/(2*c**2) - Derivative(a(t), t)**2/(4*c**2*a(t))"
+        assert repr(expr) == 'a(t)*Derivative(a(t), (t, 2))/c**2'
 
     def test_ricci_tensor_component(self, met):
         """Test R_mn"""
         expr = curvature.ricci_tensor_component(0, 0, met).doit()
-        assert repr(expr) == "-3*Derivative(a(t), (t, 2))/(2*a(t)) + 3*Derivative(a(t), t)**2/(4*a(t)**2)"
+        assert repr(expr) == '-3*Derivative(a(t), (t, 2))/a(t)'
 
     def test_ricci_scalar(self, met):
         """Test R"""
         expr = curvature.ricci_scalar(met).doit()
-        assert repr(expr) == ('-3*Derivative(a(t), (t, 2))/(2*a(t)) + 3*Derivative(a(t), t)**2/(4*a(t)**2) '
-                              '+ 3*Derivative(a(t), (t, 2))/(2*c**2) + 3*Derivative(a(t), '
-                              't)**2/(4*c**2*a(t))')
+        assert repr(clean_expr(expr)) == '6*(a(t)*Derivative(a(t), (t, 2)) + Derivative(a(t), t)**2)/a(t)**2'
 
     def test_einstein_tensor_component(self, met):
         """Test G_mn"""
         expr = curvature.einstein_tensor_component(0, 0, met).doit()
-        assert repr(expr) == ('c**2/2 - 3*Derivative(a(t), (t, 2))/(2*a(t)) + 3*Derivative(a(t), '
-                              't)**2/(4*a(t)**2)')
+        assert repr(clean_expr(expr)) == '3*Derivative(a(t), t)**2/a(t)**2'
 
 
 class TestFLRW:

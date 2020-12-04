@@ -36,7 +36,7 @@ def numeric_symbol(name: str, assumptions: dict = None):
     return _Symbol(name, **assumptions)
 
 
-class CoordinateSymbol:
+class CoordinateSymbol: # pylint: disable=too-few-public-methods
     """An enumeration of commonly used coordinate symbols"""
     Time = numeric_symbol('t')
     CartesianX = numeric_symbol('x')
@@ -47,12 +47,12 @@ class CoordinateSymbol:
     SphericalAzimuthalAngle = numeric_symbol(r'\varphi')
 
 
-class CurvatureSymbol:
+class CurvatureSymbol: # pylint: disable=too-few-public-methods
     """An Enumeration of commonly used curvature symbols"""
     ConstantCurvature = numeric_symbol('k')
 
 
-class MatterSymbol:
+class MatterSymbol: # pylint: disable=too-few-public-methods
     """An Enumeration of commonly used matter symbols"""
     Density = numeric_symbol(r'\rho')
     Pressure = numeric_symbol('p')

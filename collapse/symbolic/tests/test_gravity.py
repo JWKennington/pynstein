@@ -4,6 +4,7 @@
 import pytest
 
 from collapse.symbolic import gravity, metric, matter
+from collapse.symbolic.utilities import clean_expr
 
 
 class TestGravity:
@@ -18,5 +19,4 @@ class TestGravity:
         """Test G_mn = T_mn"""
         se = matter.perfect_fluid(met)
         expr = gravity.einstein_equation(0, 0, met, stress_energy=se).doit()
-        assert repr(expr) == ('Eq(c**2/2 - 3*Derivative(a(t), (t, 2))/(2*a(t)) + 3*Derivative(a(t), '
-                              't)**2/(4*a(t)**2), 8*G*pi*(-c**2*p + p + rho)/c**4)')
+        assert repr(clean_expr(expr)) == 'Eq(8*pi*\\rho, 3*(k + Derivative(a(t), t)**2)/a(t)**2)'

@@ -97,7 +97,7 @@ class TestPredefinedMetrics:
 
     def test_flrw(self):
         """Test Predefined FLRW metric"""
-        assert repr(metric.flrw(cartesian=True)) == ('-c**2*TensorProduct(dt, dt) + a(t)*(TensorProduct(dx, dx) + '
+        assert repr(metric.flrw(cartesian=True)) == ('-c**2*TensorProduct(dt, dt) + a(t)**2*(TensorProduct(dx, dx) + '
                                                      'TensorProduct(dy, dy) + TensorProduct(dz, dz))')
 
         assert repr(metric.flrw()) == ('-c**2*TensorProduct(dt, dt) + '

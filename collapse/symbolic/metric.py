@@ -117,10 +117,9 @@ def friedmann_lemaitre_roberston_walker(curvature_constant: Symbol = symbols.k, 
         form = - c ** 2 * tpow(dt, 2) + a ** 2 * (tpow(dx, 2) + tpow(dy, 2) + tpow(dz, 2))
     else:
         cs = coords.toroidal_coords()
-        t, r, theta, phi = cs.base_symbols()
+        _, r, theta, _ = cs.base_symbols()
         dt, dr, dtheta, dphi = cs.base_oneforms()
-        dSigmaSq = 1 / (1 - curvature_constant * r ** 2) * tpow(dr, 2) + r ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2))
-        form = - c ** 2 * tpow(dt, 2) + a ** 2 * dSigmaSq
+        form = - c ** 2 * tpow(dt, 2) + a ** 2 * (1 / (1 - curvature_constant * r ** 2) * tpow(dr, 2) + r ** 2 * (tpow(dtheta, 2) + sin(theta) ** 2 * tpow(dphi, 2)))
     return Metric(twoform=form, components=(a,))
 
 
