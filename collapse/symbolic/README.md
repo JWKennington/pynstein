@@ -14,15 +14,15 @@ P = Patch('origin', M)
 cs = coords.CoordSystem('cartesian', P, ['x', 'y'])
 cs
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\text{OneDim}^{\text{origin}}_{\text{M}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\text{OneDim}^{\text{origin}}_{\text{M}}" title="\large \text{OneDim}^{\text{origin}}_{\text{M}}" /></a>
-<!-- $\text{OneDim}^{\text{origin}}_{\text{M}}$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;\text{cartesian}^{\text{origin}}_{\text{M}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;\text{cartesian}^{\text{origin}}_{\text{M}}" title="\large \displaystyle \text{cartesian}^{\text{origin}}_{\text{M}}" /></a>
+<!-- $\displaystyle \text{cartesian}^{\text{origin}}_{\text{M}}$ -->
 
 ```python
 # In sympy it is difficult to access underlying parameters, but the new base_symbols function makes it easy:
 cs.base_symbols()
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left(&space;t,&space;\&space;x\right)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left(&space;t,&space;\&space;x\right)" title="\large \left( t, \ x\right)" /></a>
-<!-- $\left( t, \  x\right)$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left(&space;x,&space;\&space;y\right)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left(&space;x,&space;\&space;y\right)" title="\large \left( x, \ y\right)" /></a>
+<!-- $\left( x, \  y\right)$ -->
 
 ## Metrics
 
@@ -109,32 +109,33 @@ from collapse.symbolic import matter
 
 ```python
 # Need to quickly redefine the coordinates to have a temporal coordinate
-M = Manifold('M', dim=2)
+t, x, y = symbols('t x y')
+M = Manifold('M', dim=3)
 P = Patch('origin', M)
-cs = coords.CoordSystem('OneDim', P, ['t', 'x'])
+cs = coords.CoordSystem('OneDim', P, [t, x, y])
 
-t, x = cs.base_symbols()
-dt, dx = cs.base_oneforms()
-Q = Function('Q')(t, x) # Define an arbitrary function that depends on x and y
-g5 = metric.Metric(twoform=- Q**2 * tpow(dt, 2) + b**2 * tpow(dx, 2), components=(Q, b))
+dt, dx, dy = cs.base_oneforms()
+Q = Function('Q')(t, y) # Define an arbitrary function that depends on x and y
+S = Function('S')(t, x) # Define an arbitrary function that depends on x and y
+g5 = metric.Metric(twoform=- Q**2 * tpow(dt, 2) + b**2 * tpow(dx, 2) + S**2 * tpow(dy, 2), components=(Q, S, b))
 g5
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;b^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;-&space;Q^{2}{\left(t,x&space;\right)}&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;b^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;-&space;Q^{2}{\left(t,x&space;\right)}&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t" title="\large b^{2} \operatorname{d}x \otimes \operatorname{d}x - Q^{2}{\left(t,x \right)} \operatorname{d}t \otimes \operatorname{d}t" /></a>
-<!-- $b^{2} \operatorname{d}x \otimes \operatorname{d}x - Q^{2}{\left(t,x \right)} \operatorname{d}t \otimes \operatorname{d}t$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;b^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;-&space;Q^{2}{\left(t,y&space;\right)}&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t&space;&plus;&space;S^{2}{\left(t,x&space;\right)}&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;b^{2}&space;\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;-&space;Q^{2}{\left(t,y&space;\right)}&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t&space;&plus;&space;S^{2}{\left(t,x&space;\right)}&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y" title="\large \displaystyle b^{2} \operatorname{d}x \otimes \operatorname{d}x - Q^{2}{\left(t,y \right)} \operatorname{d}t \otimes \operatorname{d}t + S^{2}{\left(t,x \right)} \operatorname{d}y \otimes \operatorname{d}y" /></a>
+<!-- $\displaystyle b^{2} \operatorname{d}x \otimes \operatorname{d}x - Q^{2}{\left(t,y \right)} \operatorname{d}t \otimes \operatorname{d}t + S^{2}{\left(t,x \right)} \operatorname{d}y \otimes \operatorname{d}y$ -->
 
 ```python
 # Now use the matter module to create the stress energy tensor for perfect fluid
 T = matter.perfect_fluid(g5)
 T
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left[\begin{matrix}p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left[\begin{matrix}p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" title="\large \left[\begin{matrix}p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]" /></a>
-<!-- $\left[\begin{matrix}p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;\left[\begin{matrix}\rho&space;-&space;p&space;Q^{2}{\left(t,y&space;\right)}&space;&plus;&space;p&space;&&space;0&space;&&space;0\\0&space;&&space;b^{2}&space;p&space;&&space;0\\0&space;&&space;0&space;&&space;p&space;S^{2}{\left(t,x&space;\right)}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;\left[\begin{matrix}\rho&space;-&space;p&space;Q^{2}{\left(t,y&space;\right)}&space;&plus;&space;p&space;&&space;0&space;&&space;0\\0&space;&&space;b^{2}&space;p&space;&&space;0\\0&space;&&space;0&space;&&space;p&space;S^{2}{\left(t,x&space;\right)}\end{matrix}\right]" title="\large \displaystyle \left[\begin{matrix}\rho - p Q^{2}{\left(t,y \right)} + p & 0 & 0\\0 & b^{2} p & 0\\0 & 0 & p S^{2}{\left(t,x \right)}\end{matrix}\right]" /></a>
+<!-- $\displaystyle \left[\begin{matrix}\rho - p Q^{2}{\left(t,y \right)} + p & 0 & 0\\0 & b^{2} p & 0\\0 & 0 & p S^{2}{\left(t,x \right)}\end{matrix}\right]$ -->
 
 ```python
-curvature.einstein_tensor_component(0, 0, g5).doit()
+utilities.clean_expr(curvature.einstein_tensor_component(0, 0, g5))
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{Q^{2}{\left(t,x&space;\right)}}{2}&space;&plus;&space;\frac{Q{\left(t,x&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;Q{\left(t,x&space;\right)}}{b^{2}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{Q^{2}{\left(t,x&space;\right)}}{2}&space;&plus;&space;\frac{Q{\left(t,x&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;Q{\left(t,x&space;\right)}}{b^{2}}" title="\large \frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}}" /></a>
-<!-- $\frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}}$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;-&space;\frac{Q^{2}{\left(t,y&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;S{\left(t,x&space;\right)}}{b^{2}&space;S{\left(t,x&space;\right)}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;-&space;\frac{Q^{2}{\left(t,y&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;S{\left(t,x&space;\right)}}{b^{2}&space;S{\left(t,x&space;\right)}}" title="\large \displaystyle - \frac{Q^{2}{\left(t,y \right)} \frac{\partial^{2}}{\partial x^{2}} S{\left(t,x \right)}}{b^{2} S{\left(t,x \right)}}" /></a>
+<!-- $\displaystyle - \frac{Q^{2}{\left(t,y \right)} \frac{\partial^{2}}{\partial x^{2}} S{\left(t,x \right)}}{b^{2} S{\left(t,x \right)}}$ -->
 
 ```python
 # Note that in the limit Q -> 1
@@ -142,14 +143,14 @@ g5_lim = g5.subs({Q: 1})
 T_lim = matter.perfect_fluid(g5_lim)
 T_lim
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\left[\begin{matrix}\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\left[\begin{matrix}\rho&space;&&space;0\\0&space;&&space;\frac{p}{b^{2}}\end{matrix}\right]" title="\large \left[\begin{matrix}\rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]" /></a>
-<!-- $\left[\begin{matrix}\rho & 0\\0 & \frac{p}{b^{2}}\end{matrix}\right]$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;\left[\begin{matrix}\rho&space;&&space;0&space;&&space;0\\0&space;&&space;b^{2}&space;p&space;&&space;0\\0&space;&&space;0&space;&&space;p&space;S^{2}{\left(t,x&space;\right)}\end{matrix}\right]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;\left[\begin{matrix}\rho&space;&&space;0&space;&&space;0\\0&space;&&space;b^{2}&space;p&space;&&space;0\\0&space;&&space;0&space;&&space;p&space;S^{2}{\left(t,x&space;\right)}\end{matrix}\right]" title="\large \displaystyle \left[\begin{matrix}\rho & 0 & 0\\0 & b^{2} p & 0\\0 & 0 & p S^{2}{\left(t,x \right)}\end{matrix}\right]" /></a>
+<!-- $\displaystyle \left[\begin{matrix}\rho & 0 & 0\\0 & b^{2} p & 0\\0 & 0 & p S^{2}{\left(t,x \right)}\end{matrix}\right]$ -->
 
 ```python
-curvature.einstein_tensor_component(0, 0, g5_lim).doit()
+utilities.clean_expr(curvature.einstein_tensor_component(0, 0, g5_lim))
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{1}{2}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{1}{2}" title="\large \frac{1}{2}" /></a>
-<!-- $\frac{1}{2}$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;-&space;\frac{\frac{\partial^{2}}{\partial&space;x^{2}}&space;S{\left(t,x&space;\right)}}{b^{2}&space;S{\left(t,x&space;\right)}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;-&space;\frac{\frac{\partial^{2}}{\partial&space;x^{2}}&space;S{\left(t,x&space;\right)}}{b^{2}&space;S{\left(t,x&space;\right)}}" title="\large \displaystyle - \frac{\frac{\partial^{2}}{\partial x^{2}} S{\left(t,x \right)}}{b^{2} S{\left(t,x \right)}}" /></a>
+<!-- $\displaystyle - \frac{\frac{\partial^{2}}{\partial x^{2}} S{\left(t,x \right)}}{b^{2} S{\left(t,x \right)}}$ -->
 
 ## Gravity
 
@@ -159,45 +160,46 @@ from collapse.symbolic import gravity
 ```
 
 ```python
-gravity.einstein_equation(0, 0, g5).doit()
+utilities.clean_expr(gravity.einstein_equation(0, 0, g5, T))
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{Q^{2}{\left(t,x&space;\right)}}{2}&space;&plus;&space;\frac{Q{\left(t,x&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;Q{\left(t,x&space;\right)}}{b^{2}}&space;=&space;p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{Q^{2}{\left(t,x&space;\right)}}{2}&space;&plus;&space;\frac{Q{\left(t,x&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;Q{\left(t,x&space;\right)}}{b^{2}}&space;=&space;p&space;-&space;\frac{p}{Q^{2}{\left(t,x&space;\right)}}&space;&plus;&space;\rho" title="\large \frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}} = p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho" /></a>
-<!-- $\frac{Q^{2}{\left(t,x \right)}}{2} + \frac{Q{\left(t,x \right)} \frac{\partial^{2}}{\partial x^{2}} Q{\left(t,x \right)}}{b^{2}} = p - \frac{p}{Q^{2}{\left(t,x \right)}} + \rho$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;8&space;\pi&space;\left(\rho&space;-&space;p&space;Q^{2}{\left(t,y&space;\right)}&space;&plus;&space;p\right)&space;=&space;-&space;\frac{Q^{2}{\left(t,y&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;S{\left(t,x&space;\right)}}{b^{2}&space;S{\left(t,x&space;\right)}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;8&space;\pi&space;\left(\rho&space;-&space;p&space;Q^{2}{\left(t,y&space;\right)}&space;&plus;&space;p\right)&space;=&space;-&space;\frac{Q^{2}{\left(t,y&space;\right)}&space;\frac{\partial^{2}}{\partial&space;x^{2}}&space;S{\left(t,x&space;\right)}}{b^{2}&space;S{\left(t,x&space;\right)}}" title="\large \displaystyle 8 \pi \left(\rho - p Q^{2}{\left(t,y \right)} + p\right) = - \frac{Q^{2}{\left(t,y \right)} \frac{\partial^{2}}{\partial x^{2}} S{\left(t,x \right)}}{b^{2} S{\left(t,x \right)}}" /></a>
+<!-- $\displaystyle 8 \pi \left(\rho - p Q^{2}{\left(t,y \right)} + p\right) = - \frac{Q^{2}{\left(t,y \right)} \frac{\partial^{2}}{\partial x^{2}} S{\left(t,x \right)}}{b^{2} S{\left(t,x \right)}}$ -->
 
 ```python
 # Similarly in the limit:
-gravity.einstein_equation(0, 0, g5_lim).doit()
+utilities.clean_expr(gravity.einstein_equation(0, 0, g5_lim, T_lim))
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{1}{2}&space;=&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{1}{2}&space;=&space;\rho" title="\large \frac{1}{2} = \rho" /></a>
-<!-- $\frac{1}{2} = \rho$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;8&space;\pi&space;\rho&space;=&space;-&space;\frac{\frac{\partial^{2}}{\partial&space;x^{2}}&space;S{\left(t,x&space;\right)}}{b^{2}&space;S{\left(t,x&space;\right)}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;8&space;\pi&space;\rho&space;=&space;-&space;\frac{\frac{\partial^{2}}{\partial&space;x^{2}}&space;S{\left(t,x&space;\right)}}{b^{2}&space;S{\left(t,x&space;\right)}}" title="\large \displaystyle 8 \pi \rho = - \frac{\frac{\partial^{2}}{\partial x^{2}} S{\left(t,x \right)}}{b^{2} S{\left(t,x \right)}}" /></a>
+<!-- $\displaystyle 8 \pi \rho = - \frac{\frac{\partial^{2}}{\partial x^{2}} S{\left(t,x \right)}}{b^{2} S{\left(t,x \right)}}$ -->
 
 ## Full Example: FLRW Cosmology
 
 ```python
 # Load the predefined FLRW metric
-flrw = metric.flrw_metric().subs({'c': 1})
+flrw = metric.flrw(cartesian=True)
 flrw
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;a{\left(t&space;\right)}&space;\left(\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y&space;&plus;&space;\operatorname{d}z&space;\otimes&space;\operatorname{d}z\right)&space;-&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;a{\left(t&space;\right)}&space;\left(\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y&space;&plus;&space;\operatorname{d}z&space;\otimes&space;\operatorname{d}z\right)&space;-&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t" title="\large a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t" /></a>
-<!-- $a{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right) - \operatorname{d}t \otimes \operatorname{d}t$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;-&space;c^{2}&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t&space;&plus;&space;a^{2}{\left(t&space;\right)}&space;\left(\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y&space;&plus;&space;\operatorname{d}z&space;\otimes&space;\operatorname{d}z\right)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;-&space;c^{2}&space;\operatorname{d}t&space;\otimes&space;\operatorname{d}t&space;&plus;&space;a^{2}{\left(t&space;\right)}&space;\left(\operatorname{d}x&space;\otimes&space;\operatorname{d}x&space;&plus;&space;\operatorname{d}y&space;\otimes&space;\operatorname{d}y&space;&plus;&space;\operatorname{d}z&space;\otimes&space;\operatorname{d}z\right)" title="\large \displaystyle - c^{2} \operatorname{d}t \otimes \operatorname{d}t + a^{2}{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right)" /></a>
+<!-- $\displaystyle - c^{2} \operatorname{d}t \otimes \operatorname{d}t + a^{2}{\left(t \right)} \left(\operatorname{d}x \otimes \operatorname{d}x + \operatorname{d}y \otimes \operatorname{d}y + \operatorname{d}z \otimes \operatorname{d}z\right)$ -->
 
 ```python
-efe_00 = gravity.einstein_equation(0, 0, flrw).doit()
+T = matter.perfect_fluid(flrw)
+efe_00 = utilities.clean_expr(gravity.einstein_equation(0, 0, flrw, T).doit())
 efe_00
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{1}{2}&space;-&space;\frac{3&space;\frac{d^{2}}{d&space;t^{2}}&space;a{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\left(\frac{d}{d&space;t}&space;a{\left(t&space;\right)}\right)^{2}}{4&space;a^{2}{\left(t&space;\right)}}&space;=&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{1}{2}&space;-&space;\frac{3&space;\frac{d^{2}}{d&space;t^{2}}&space;a{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\left(\frac{d}{d&space;t}&space;a{\left(t&space;\right)}\right)^{2}}{4&space;a^{2}{\left(t&space;\right)}}&space;=&space;\rho" title="\large \frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{4 a^{2}{\left(t \right)}} = \rho" /></a>
-<!-- $\frac{1}{2} - \frac{3 \frac{d^{2}}{d t^{2}} a{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{4 a^{2}{\left(t \right)}} = \rho$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;8&space;\pi&space;\rho&space;=&space;\frac{3&space;\left(\frac{d}{d&space;t}&space;a{\left(t&space;\right)}\right)^{2}}{a^{2}{\left(t&space;\right)}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;8&space;\pi&space;\rho&space;=&space;\frac{3&space;\left(\frac{d}{d&space;t}&space;a{\left(t&space;\right)}\right)^{2}}{a^{2}{\left(t&space;\right)}}" title="\large \displaystyle 8 \pi \rho = \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{a^{2}{\left(t \right)}}" /></a>
+<!-- $\displaystyle 8 \pi \rho = \frac{3 \left(\frac{d}{d t} a{\left(t \right)}\right)^{2}}{a^{2}{\left(t \right)}}$ -->
 
 ```python
 # Simplify derivative notation:
 metric.simplify_deriv_notation(efe_00, flrw)
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\frac{1}{2}&space;-&space;\frac{3&space;\operatorname{a''}{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\operatorname{a'}^{2}{\left(t&space;\right)}}{4&space;a^{2}{\left(t&space;\right)}}&space;=&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\frac{1}{2}&space;-&space;\frac{3&space;\operatorname{a''}{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\operatorname{a'}^{2}{\left(t&space;\right)}}{4&space;a^{2}{\left(t&space;\right)}}&space;=&space;\rho" title="\large \frac{1}{2} - \frac{3 \operatorname{a''}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \operatorname{a'}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} = \rho" /></a>
-<!-- $\frac{1}{2} - \frac{3 \operatorname{a''}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \operatorname{a'}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} = \rho$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;8&space;\pi&space;\rho&space;=&space;\frac{3&space;\operatorname{a'}^{2}{\left(t&space;\right)}}{a^{2}{\left(t&space;\right)}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;8&space;\pi&space;\rho&space;=&space;\frac{3&space;\operatorname{a'}^{2}{\left(t&space;\right)}}{a^{2}{\left(t&space;\right)}}" title="\large \displaystyle 8 \pi \rho = \frac{3 \operatorname{a'}^{2}{\left(t \right)}}{a^{2}{\left(t \right)}}" /></a>
+<!-- $\displaystyle 8 \pi \rho = \frac{3 \operatorname{a'}^{2}{\left(t \right)}}{a^{2}{\left(t \right)}}$ -->
 
 ```python
 # Can also use "dots"
 metric.simplify_deriv_notation(efe_00, flrw, use_dots=True)
 ```
-<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;-&space;\frac{3&space;\ddot{a}{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\dot{a}^{2}{\left(t&space;\right)}}{4&space;a^{2}{\left(t&space;\right)}}&space;&plus;&space;\frac{1}{2}&space;=&space;\rho" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;-&space;\frac{3&space;\ddot{a}{\left(t&space;\right)}}{2&space;a{\left(t&space;\right)}}&space;&plus;&space;\frac{3&space;\dot{a}^{2}{\left(t&space;\right)}}{4&space;a^{2}{\left(t&space;\right)}}&space;&plus;&space;\frac{1}{2}&space;=&space;\rho" title="\large - \frac{3 \ddot{a}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \dot{a}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} + \frac{1}{2} = \rho" /></a>
-<!-- $- \frac{3 \ddot{a}{\left(t \right)}}{2 a{\left(t \right)}} + \frac{3 \dot{a}^{2}{\left(t \right)}}{4 a^{2}{\left(t \right)}} + \frac{1}{2} = \rho$ -->
+<a href="https://www.codecogs.com/eqnedit.php?latex=\large&space;\displaystyle&space;8&space;\pi&space;\rho&space;=&space;\frac{3&space;\dot{a}^{2}{\left(t&space;\right)}}{a^{2}{\left(t&space;\right)}}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\large&space;\displaystyle&space;8&space;\pi&space;\rho&space;=&space;\frac{3&space;\dot{a}^{2}{\left(t&space;\right)}}{a^{2}{\left(t&space;\right)}}" title="\large \displaystyle 8 \pi \rho = \frac{3 \dot{a}^{2}{\left(t \right)}}{a^{2}{\left(t \right)}}" /></a>
+<!-- $\displaystyle 8 \pi \rho = \frac{3 \dot{a}^{2}{\left(t \right)}}{a^{2}{\left(t \right)}}$ -->
