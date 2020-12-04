@@ -72,9 +72,9 @@ class CoordSystem(_CoordSystem):
     @staticmethod
     def from_sympy_coordsystem(coord_system: _CoordSystem):
         """Create a CoordSystem from a sympy.diffgeom.CoordSystem"""
-        return CoordSystem(name=coord_system.name,
-                           patch=coord_system.patch,
-                           names=coord_system._names)  # pylint: disable=protected-access
+        return CoordSystem(name=coord_system.args[0],
+                           patch=coord_system.args[1],
+                           names=coord_system.args[2])  # pylint: disable=protected-access
 
     @staticmethod
     def from_twoform(twoform: Expr):
