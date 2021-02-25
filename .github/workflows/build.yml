@@ -20,10 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          ls -a
-      - run: |
-          pwd
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
@@ -40,8 +36,7 @@ jobs:
 #          echo $CONDA/bin >> $GITHUB_PATH
       - name: Install dependencies
         run: |
-          conda env create --file ../environment.yml
-          conda activate collapse-env
+          conda env list
       #      - name: Lint with flake8
       #        run: |
       #          conda install flake8
