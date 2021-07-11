@@ -3,7 +3,7 @@
 
 import pytest
 
-from collapse.symbolic import matter, metric
+from pynstein.symbolic import matter, metric
 
 
 class TestMatter:

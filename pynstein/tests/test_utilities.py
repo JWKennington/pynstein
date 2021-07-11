@@ -3,7 +3,8 @@
 
 from sympy import symbols, Matrix, Function, Derivative
 
-from collapse.symbolic import utilities, coords
+from pynstein.symbolic import coords
+from pynstein import utilities
 
 
 class TestUtilities:

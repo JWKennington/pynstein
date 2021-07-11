@@ -11,7 +11,7 @@ and computing derivatives.
 
 from sympy import Derivative as D, Rational, Expr
 
-from collapse.symbolic.metric import Metric
+from pynstein.symbolic.metric import Metric
 
 
 def christoffel_symbol_component(lam: int, mu: int, nu: int, metric: Metric) -> Expr:

@@ -10,9 +10,10 @@ from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matri
 from sympy.diffgeom import twoform_to_matrix
 from sympy.printing.latex import latex
 
-from collapse.symbolic import coords, constants, symbols
-from collapse.symbolic.constants import c
-from collapse.symbolic.utilities import tensor_pow as tpow, matrix_to_twoform
+from pynstein.symbolic import coords, symbols
+from pynstein import constants
+from pynstein.constants import c
+from pynstein.utilities import tensor_pow as tpow, matrix_to_twoform
 
 
 class Metric:

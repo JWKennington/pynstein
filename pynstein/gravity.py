@@ -6,8 +6,9 @@ in that it equates those quantities for fixed components.
 
 from sympy import Equality, Expr, pi, Matrix
 
-from collapse.symbolic import constants, curvature, matter
-from collapse.symbolic.metric import Metric
+from pynstein.symbolic import curvature, matter
+from pynstein import constants
+from pynstein.symbolic.metric import Metric
 
 
 def einstein_equation(mu: int, nu: int, metric: Metric, stress_energy: Matrix = None) -> Expr:

@@ -3,18 +3,18 @@
 
 import setuptools
 
-import collapse
+import pynstein
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(name='collapse',
-                 version=collapse.__version__,
+setuptools.setup(name='pynstein',
+                 version=pynstein.__version__,
                  description='Collapse',
                  long_description=long_description,
                  long_description_content_type="text/markdown",
                  python_requires='==3.7, ==3.8',
-                 url=collapse.__github_url__,
+                 url=pynstein.__github_url__,
                  author='James Kennington',
                  author_email='jwkennington@psu.edu',
                  license='MIT',

@@ -4,11 +4,11 @@
 
 ```python
 from sympy.diffgeom import Manifold, Patch
-from collapse.symbolic import coords
+from pynstein.symbolic import coords
 ```
 
 ```python
-# The collapse CoordinateSystem extends the sympy.diffgeom api to make parameters more accessible
+# The pynstein CoordinateSystem extends the sympy.diffgeom api to make parameters more accessible
 M = Manifold('M', dim=2)
 P = Patch('origin', M)
 cs = coords.CoordSystem('cartesian', P, ['x', 'y'])
@@ -29,8 +29,8 @@ cs.base_symbols()
 ```python
 # Assembling a metric is easy
 from sympy import Array, symbols
-from collapse.symbolic import metric
-from collapse.symbolic.utilities import tensor_pow as tpow
+from pynstein.symbolic import metric
+from pynstein.utilities import tensor_pow as tpow
 ```
 
 ```python
@@ -83,7 +83,7 @@ g3
 ```python
 # Now let's compute curvature terms
 from sympy import Function
-from collapse.symbolic import curvature
+from pynstein.symbolic import curvature
 ```
 
 ```python
@@ -104,7 +104,7 @@ curvature.ricci_tensor_component(0, 0, g4).doit()
 
 ```python
 # Let's compute the matter stress energy tensor of a perfect fluid in 1D
-from collapse.symbolic import matter
+from pynstein import matter
 ```
 
 ```python
@@ -156,7 +156,7 @@ utilities.clean_expr(curvature.einstein_tensor_component(0, 0, g5_lim))
 
 ```python
 # One can also directly compute the Einstein Equations
-from collapse.symbolic import gravity
+from pynstein.symbolic import gravity
 ```
 
 ```python

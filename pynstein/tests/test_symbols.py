@@ -1,7 +1,7 @@
-"""Unittests for collapse.symbolic.constants module"""
+"""Unittests for pynstein.symbolic.constants module"""
 # pylint: disable=protected-access
 
-from collapse.symbolic import symbols
+from pynstein.symbolic import symbols
 
 
 class TestSymbols:

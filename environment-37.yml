@@ -1,4 +1,4 @@
-name: collapse-env
+name: pynstein-env
 
 channels:
   - conda-forge

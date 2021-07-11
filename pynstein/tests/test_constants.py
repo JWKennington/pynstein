@@ -1,11 +1,11 @@
-"""Unittests for collapse.symbolic.constants module"""
+"""Unittests for pynstein.symbolic.constants module"""
 # pylint: disable=protected-access
 import pytest
 from astropy import constants as astro_constants
 from sympy import symbols
 
-from collapse.symbolic import constants
-from collapse.symbolic.constants import UnitSystem
+from pynstein import constants
+from pynstein.constants import UnitSystem
 
 
 class TestNaturalUnits:

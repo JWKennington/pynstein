@@ -13,4 +13,4 @@ twine upload dist/*
 # Cleanup
 rm -rf build
 rm -rf dist
-rm -rf collapse.egg_info
+rm -rf pynstein.egg_info

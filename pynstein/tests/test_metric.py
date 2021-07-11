@@ -1,4 +1,4 @@
-"""Unittests for collapse package
+"""Unittests for pynstein package
 
 Presently only a dummy test to confirm repo setup and CI integration
 """
@@ -6,8 +6,8 @@ Presently only a dummy test to confirm repo setup and CI integration
 import pytest
 from sympy import Function, symbols, Derivative as D, Array
 
-from collapse.symbolic import metric, coords
-from collapse.symbolic.utilities import tensor_pow as tpow
+from pynstein.symbolic import metric, coords
+from pynstein.utilities import tensor_pow as tpow
 
 
 class TestMetric:
