@@ -8,6 +8,7 @@ dependencies:
   - astropy
   - coverage
   - matplotlib
+  - notebook
   - numpy
   - pip
   - pip:
