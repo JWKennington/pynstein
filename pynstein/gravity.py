@@ -3,12 +3,14 @@
 This module largely serves as a convenience wrapper around the matter and curvature modules,
 in that it equates those quantities for fixed components.
 """
-
+import sympy.core.numbers
 from sympy import Equality, Expr, pi, Matrix
 
-from pynstein.symbolic import curvature, matter
+from pynstein import curvature, matter
 from pynstein import constants
-from pynstein.symbolic.metric import Metric
+from pynstein.metric import Metric
+
+sympy.core.numbers.NegativeOne
 
 
 def einstein_equation(mu: int, nu: int, metric: Metric, stress_energy: Matrix = None) -> Expr:

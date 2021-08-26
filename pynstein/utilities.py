@@ -3,6 +3,7 @@
 import functools
 from typing import Tuple
 
+import sympy
 from sympy import Rational, Expr, Matrix, simplify
 from sympy.diffgeom import TensorProduct
 from sympy.tensor.tensor import Tensor
@@ -54,3 +55,8 @@ def clean_expr(e: Expr, natural: bool = True) -> Expr:
     if natural:
         e = constants.subs_natural(e)
     return simplify(e.doit())
+
+
+def full_simplify(x):
+    return sympy.simplify(sympy.expand(x.simplify()))
+

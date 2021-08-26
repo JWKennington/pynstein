@@ -18,7 +18,7 @@ from typing import Tuple
 from sympy import Symbol, Expr
 from sympy.diffgeom import CoordSystem as _CoordSystem, Manifold, Patch
 
-from pynstein.symbolic import symbols
+from pynstein import symbols
 
 CARTESIAN_SPATIAL_SYMBOLS = [
     symbols.CoordinateSymbol.CartesianX,
