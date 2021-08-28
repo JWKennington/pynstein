@@ -149,3 +149,12 @@ def compute_components(metric: Metric, non_trivial: bool = True):
 		riccis = [x for x in riccis if x[1]]
 
 	return christoffels, riemanns, riccis
+
+
+def display_components(cps):
+	label_names = ['\\mu', '\\nu', '\\rho', '\\sigma'][:len(cps)]
+	exprs = [c[1] for c in cps]
+	labels = [c[0] for c in cps]
+	utilities.concat_latex(exprs, labels, label_names, display=True)
+
+

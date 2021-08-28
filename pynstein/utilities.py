@@ -1,8 +1,10 @@
 """Miscellaneous symbolic utilities"""
 
 import functools
+import typing
 from typing import Tuple
 
+from IPython import display as _display
 import sympy
 from sympy import Rational, Expr, Matrix, simplify
 from sympy.diffgeom import TensorProduct
@@ -59,4 +61,34 @@ def clean_expr(e: Expr, natural: bool = True) -> Expr:
 
 def full_simplify(x):
     return sympy.simplify(sympy.expand(x.simplify()))
+
+
+def unwrap_latex(s: str) -> str:
+    if s.startswith('$\\displaystyle '):
+        s = s.replace('$\\displaystyle ', '')
+    if s.startswith('$') or s.endswith('$'):
+        s = s.replace('$', '')
+    return s
+
+
+def wrap_latex(s: str, style: str = '') -> str:
+    return '{}{}{}{}'.format('' if s.startswith('$') else '$',
+                             style,
+                             s,
+                             '' if s.endswith('$') else '$')
+
+
+def concat_latex(exprs: typing.List[sympy.Expr], labels: typing.List[str] = None, label_names: typing.List[str] = None, display=False):
+    latex_exprs = [unwrap_latex(full_simplify(e)._repr_latex_()) for e in exprs]
+    if labels is not None and label_names is not None:
+        label_strs = ['({})'.format(', '.join('{}={:d}'.format(name, value) for name, value in zip(label_names, label))) for label in labels ]
+    else:
+        label_strs = len(exprs) * ['']
+    combined = '\\begin{{split}} {} \\end{{split}}'.format(' \\\\ '.join('{} &: {}'.format(label, expr) for label, expr in zip(label_strs, latex_exprs)))
+    tex = wrap_latex(combined)
+
+    if display:
+        _display.display_latex(tex, raw=True)
+    return tex
+
 
