@@ -3,6 +3,7 @@
 """
 import itertools
 
+import numpy
 import pandas
 import sympy
 from scipy import integrate
@@ -53,5 +54,15 @@ def numerical_geodesic(g: metric.Metric, init, ts):
 	res = integrate.odeint(integrand, init, ts)
 	df = pandas.DataFrame(res[:, :N], columns=[c.name for c in coords])
 	return df
+
+
+def numerical_sampler(g: metric.Metric, ls: numpy.ndarray, init_point: tuple, tangent_scale: float = 1, num_angles: int = 12):
+	dfs = []
+	for theta_0 in numpy.arange(0.0, 2 * numpy.pi, numpy.pi / num_angles):
+		_df = numerical_geodesic(g, tuple(list(init_point) + [tangent_scale * numpy.cos(theta_0), tangent_scale * numpy.sin(theta_0)]), ls)
+		_df = _df.assign(theta_0=theta_0)
+		dfs.append(_df)
+	return pandas.concat(dfs, axis=0)
+
 
 
