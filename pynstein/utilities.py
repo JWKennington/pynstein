@@ -4,6 +4,7 @@ import functools
 import typing
 from typing import Tuple
 
+import pandas
 from IPython import display as _display
 import sympy
 from sympy import Rational, Expr, Matrix, simplify
@@ -91,4 +92,13 @@ def concat_latex(exprs: typing.List[sympy.Expr], labels: typing.List[str] = None
         _display.display_latex(tex, raw=True)
     return tex
 
+
+def boundary_filter(df: pandas.DataFrame, **kwargs):
+    queries = []
+    for k, v in sorted(kwargs.items(), key=lambda x: x[0]):
+        queries.append('{col} >= {min_} and {col} <= {max_}'.format(col=k,
+                                                                    min_=v[0],
+                                                                    max_=v[1]))
+    query = ' and '.join(queries)
+    return df.query(query)
 
