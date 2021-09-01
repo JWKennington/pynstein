@@ -44,7 +44,7 @@ def christoffel_symbol_component(lam: int, mu: int, nu: int, metric: Metric) -> 
 												D(M[mu, nu], coord_symbols[sig])) for sig in range(dim)])
 
 
-def riemann_tensor_component(rho: int, sig: int, mu: int, nu: int, metric: Metric) -> Expr:
+def riemann_tensor_component(rho: int, sig: int, mu: int, nu: int, metric: Metric, simplify_intermediate: bool = False) -> Expr:
 	"""Compute a component of the Riemann Tensor for a particular metric corresponding to
 
 		R^r_smn = p_m G_ns^r - p_n G_ms^r + G_ml^r G_ns^l - G_nl^r G_ms^l
@@ -67,7 +67,8 @@ def riemann_tensor_component(rho: int, sig: int, mu: int, nu: int, metric: Metri
 
 	def G(l, m, n):
 		"""Shorthand"""
-		return christoffel_symbol_component(l, m, n, metric)
+		c = christoffel_symbol_component(l, m, n, metric)
+		return sympy.simplify(c) if simplify_intermediate else c
 
 	coord_symbols = metric.coord_system.base_symbols()
 	dim = len(coord_symbols)
@@ -77,7 +78,7 @@ def riemann_tensor_component(rho: int, sig: int, mu: int, nu: int, metric: Metri
 		   sum([G(rho, nu, lam) * G(lam, mu, sig) for lam in range(dim)])
 
 
-def ricci_tensor_component(mu: int, nu: int, metric: Metric):
+def ricci_tensor_component(mu: int, nu: int, metric: Metric, simplify_intermediate: bool = False):
 	"""Compute a component of the Ricci Tensor for a particular metric corresponding to
 
 		R_mn = R_m^l_ln
@@ -96,12 +97,13 @@ def ricci_tensor_component(mu: int, nu: int, metric: Metric):
 
 	def R(r, s, m, n):
 		"""Shorthand"""
-		return riemann_tensor_component(r, s, m, n, metric=metric)
+		r = riemann_tensor_component(r, s, m, n, metric=metric, simplify_intermediate=simplify_intermediate)
+		return sympy.simplify(r) if simplify_intermediate else r
 
 	return sum([R(lam, mu, lam, nu) for lam in range(metric.coord_system.dim)])
 
 
-def ricci_scalar(metric: Metric) -> Expr:
+def ricci_scalar(metric: Metric, simplify_intermediate: bool = False) -> Expr:
 	"""Compute the Ricci Scalar for a particular metric corresponding to
 
 		R = R^l_l = g^mn R_mn
@@ -114,7 +116,7 @@ def ricci_scalar(metric: Metric) -> Expr:
 		Expression of R
 	"""
 	I = metric.inverse.matrix
-	return sum(sum(I[lam, rho] * ricci_tensor_component(rho, lam, metric=metric) for rho in range(metric.coord_system.dim)) for lam in range(metric.coord_system.dim))
+	return sum(sum(I[lam, rho] * ricci_tensor_component(rho, lam, metric=metric, simplify_intermediate=simplify_intermediate) for rho in range(metric.coord_system.dim)) for lam in range(metric.coord_system.dim))
 
 
 def einstein_tensor_component(mu: int, nu: int, metric: Metric):
