@@ -1,21 +1,21 @@
 # General Relativity Symbolic Utilities
 
-[![PyPI version](https://img.shields.io/pypi/v/pynstein)](https://pypi.org/project/pynstein/)
-[![PyPI downloads](https://img.shields.io/pypi/dm/pynstein)](https://pypi.org/project/pynstein/)
-[![PyPI versions](https://img.shields.io/pypi/pyversions/pynstein)](https://pypi.org/project/pynstein/)
-[![Build](https://img.shields.io/travis/JWKennington/pynstein)](https://pypi.org/project/pynstein/)
-[![codecov](https://codecov.io/gh/JWKennington/pynstein/branch/master/graph/badge.svg?token=G418VYV5LR)](undefined)
-[![CodeFactor Quality](https://img.shields.io/codefactor/grade/github/JWKennington/pynstein?&label=codefactor)](https://pypi.org/project/pynstein/)
-[![License](https://img.shields.io/github/license/JWKennington/pynstein?color=magenta&label=License)](https://pypi.org/project/pynstein/)
+[![PyPI version](https://img.shields.io/pypi/v/pystein)](https://pypi.org/project/pystein/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/pystein)](https://pypi.org/project/pystein/)
+[![PyPI versions](https://img.shields.io/pypi/pyversions/pystein)](https://pypi.org/project/pystein/)
+[![Build](https://img.shields.io/travis/JWKennington/pystein)](https://pypi.org/project/pystein/)
+[![codecov](https://codecov.io/gh/JWKennington/pystein/branch/master/graph/badge.svg?token=G418VYV5LR)](undefined)
+[![CodeFactor Quality](https://img.shields.io/codefactor/grade/github/JWKennington/pystein?&label=codefactor)](https://pypi.org/project/pystein/)
+[![License](https://img.shields.io/github/license/JWKennington/pystein?color=magenta&label=License)](https://pypi.org/project/pystein/)
 
-The `pynstein` package contains utilities for computing symbolic utilities for computing various 
+The `pystein` package contains utilities for computing symbolic utilities for computing various 
 quantities that arise in general relativity. Presently, this package computes components of tensors
 directly.
 
 
 ## Symbolic Tools
 
-The `pynstein` package makes use of `sympy` to compute symbolic curvature equations (EFE).
+The `pystein` package makes use of `sympy` to compute symbolic curvature equations (EFE).
 
 ### Example Computation: FLRW Cosmology
 
@@ -272,7 +272,7 @@ metric.simplify_deriv_notation(efe_00, flrw, use_dots=True)
 
 ## Numeric Tools
 
-The `pynstein` package contains some limited numerical utilities, including:
+The `pystein` package contains some limited numerical utilities, including:
 
 - ability to numerically integrate the geodesic equations `geodesic.numerical_geodesic`
 - convenience functions to compute multiple geodesics from a variety of initial conditions (2D)
@@ -280,7 +280,7 @@ The `pynstein` package contains some limited numerical utilities, including:
 These utilities are compatible with the symbolic tools thanks to `sympy.lambdify`, which is used to convert symbolic
 equations into numeric equations.
 
-*Note that the numeric tools in `pynstein` are still in beta.
+*Note that the numeric tools in `pystein` are still in beta.
 
 ### Example Geodesic Usage
 
