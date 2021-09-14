@@ -4,8 +4,9 @@
 
 import functools
 import itertools
-from typing import Tuple, Union
+from typing import Tuple, Union, List
 
+import sympy
 from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matrix, Symbol
 from sympy.diffgeom import twoform_to_matrix
 from sympy.printing.latex import latex
@@ -78,6 +79,26 @@ class Metric:
         return Metric(twoform=self.twoform.subs(*args, **kwargs),
                       # TODO make the filtering below more robust
                       components=tuple(c for c in self.components if not c.subs(*args, **kwargs).doit().is_constant()))
+
+    def inner_product(self, vec1: List[sympy.Expr], vec2: List[sympy.Expr]):
+        N = len(self.coord_system.base_symbols())
+
+        res = 0
+
+        for mu in range(N):
+            for nu in range(N):
+                res += self._matrix[mu, nu] * vec1[mu] * vec2[nu]
+
+        return res
+
+    def norm(self, vec: List[sympy.Expr]):
+        return sympy.sqrt(self.inner_product(vec, vec))
+
+
+    def angle(self, vec1, vec2):
+        norm_ip = self.inner_product(vec1, vec2) / self.norm(vec1) / self.norm(vec2)
+        return sympy.acos(norm_ip)
+
 
 
 def minkowski():

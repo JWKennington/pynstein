@@ -2,6 +2,8 @@
 
 """
 import itertools
+import typing
+from collections import namedtuple
 
 import numpy
 import pandas
@@ -11,14 +13,84 @@ from scipy import integrate
 from pynstein import metric, curvature, utilities
 
 
+class Solution:
+	def __init__(self, soln: typing.List[sympy.Eq], vec_funcs: typing.List[sympy.Function], param: sympy.Symbol, curve: typing.List[sympy.Expr],
+				 g: metric.Metric, eqns: typing.List[sympy.Eq]):
+		self.soln = soln
+		self._vec_funcs = vec_funcs
+		self._param = param
+		self._curve = curve
+		self._metric = g
+		self.eqns = eqns
+
+	def vec(self, val: sympy.Expr):
+		cs = self._metric.coord_system.base_symbols()
+		param_sub = {self._param: val}
+		subs = [(c, func.subs(param_sub)) for c, func in zip(cs, self._curve)]
+		subs += [(self._param, val)]
+		return [self.soln[n].args[1].subs(subs) for n in range(len(self.soln))]
+
+
 def path_coord_func(coord, param):
 	return sympy.Function(coord.name)(param)
 
 
-def geodesic_equation(mu: int, param, metric: metric.Metric):
-	base_symbols =metric.coord_system.base_symbols()
+def vec_coord_func(coord, param):
+	return sympy.Function('v^{{{}}}'.format(coord.name))(param)
 
-	coord_func_map = {s: path_coord_func(s, param) for s in base_symbols }
+
+def parallel_transport_equation(mu: int, curve: typing.List[sympy.Function], param: sympy.Symbol, g: metric.Metric):
+	base_symbols = g.coord_system.base_symbols()
+
+	curve_subs = dict(zip(base_symbols, curve))
+
+	N = len(base_symbols)
+
+	vec_coord_func_map = {s: vec_coord_func(s, param) for s in base_symbols}
+
+	v_mu = vec_coord_func_map[base_symbols[mu]]
+	lhs = sympy.diff(v_mu, param)
+
+	for sig in range(N):
+		x_sig = curve[sig]
+		dx_sig_d_param = sympy.diff(x_sig, param)
+
+		for rho in range(N):
+			v_rho = vec_coord_func_map[base_symbols[rho]]
+			c_sig_rho = curvature.christoffel_symbol_component(mu, sig, rho, metric=g)
+			c_sig_rho = c_sig_rho.doit().subs(curve_subs)
+			lhs += c_sig_rho * dx_sig_d_param * v_rho
+
+	return lhs
+
+
+def parallel_transport_soln(param: sympy.Symbol, curve: typing.List[sympy.Expr], g: metric.Metric):
+	bs = g.coord_system.base_symbols()
+
+	# Vector
+	v0 = sympy.Function('v^{{{}}}'.format(bs[0].name))
+	v1 = sympy.Function('v^{{{}}}'.format(bs[1].name))
+
+	lhs_0 = utilities.full_simplify(parallel_transport_equation(0, curve, param, g).doit())
+	lhs_1 = utilities.full_simplify(parallel_transport_equation(1, curve, param, g).doit())
+
+	eqns = [
+		sympy.Eq(lhs_0, 0),
+		sympy.Eq(lhs_1, 0),
+	]
+	funcs = [v0(param), v1(param)]
+
+	# Initial Conditions
+	ics = {v0(0): v0(0), v1(0): v1(0)}
+
+	soln = sympy.dsolve(eqns, funcs, ics=ics)
+	return Solution(soln, [v0, v1], param, curve, g, eqns)
+
+
+def geodesic_equation(mu: int, param, metric: metric.Metric):
+	base_symbols = metric.coord_system.base_symbols()
+
+	coord_func_map = {s: path_coord_func(s, param) for s in base_symbols}
 
 	x_mu = coord_func_map[base_symbols[mu]]
 
@@ -63,6 +135,3 @@ def numerical_sampler(g: metric.Metric, ls: numpy.ndarray, init_point: tuple, ta
 		_df = _df.assign(theta_0=theta_0)
 		dfs.append(_df)
 	return pandas.concat(dfs, axis=0)
-
-
-
