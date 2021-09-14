@@ -11,10 +11,10 @@ from sympy import Function, sin, Expr, Array, Derivative as D, MatrixBase, Matri
 from sympy.diffgeom import twoform_to_matrix
 from sympy.printing.latex import latex
 
-from pynstein import coords, symbols
-from pynstein import constants
-from pynstein.constants import c
-from pynstein.utilities import tensor_pow as tpow, matrix_to_twoform
+from pystein import coords, symbols
+from pystein import constants
+from pystein.constants import c
+from pystein.utilities import tensor_pow as tpow, matrix_to_twoform
 
 
 class Metric:

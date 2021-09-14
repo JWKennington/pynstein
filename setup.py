@@ -3,18 +3,18 @@
 
 import setuptools
 
-import pynstein
+import pystein
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(name='pynstein',
-                 version=pynstein.__version__,
+setuptools.setup(name='pystein',
+                 version=pystein.__version__,
                  description='Collapse',
                  long_description=long_description,
                  long_description_content_type="text/markdown",
                  python_requires='==3.7, ==3.8',
-                 url=pynstein.__github_url__,
+                 url=pystein.__github_url__,
                  author='James Kennington',
                  author_email='jwkennington@psu.edu',
                  license='MIT',

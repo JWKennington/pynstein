@@ -2,8 +2,8 @@
 """
 import pytest
 
-from pynstein.symbolic import curvature, metric
-from pynstein.utilities import clean_expr
+from pystein.symbolic import curvature, metric
+from pystein.utilities import clean_expr
 
 
 class TestCurvature:

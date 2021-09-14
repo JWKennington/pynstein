@@ -2,8 +2,8 @@ import numpy
 import sympy
 from sympy.diffgeom import Manifold, Patch
 
-from pynstein import geodesic, metric, coords
-from pynstein.utilities import tensor_pow as tpow
+from pystein import geodesic, metric, coords
+from pystein.utilities import tensor_pow as tpow
 
 
 class TestGeodesic:

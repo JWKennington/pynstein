@@ -1,4 +1,4 @@
-name: pynstein-env
+name: pystein-env
 
 channels:
   - conda-forge

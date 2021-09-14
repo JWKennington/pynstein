@@ -13,8 +13,8 @@ import itertools
 import sympy
 from sympy import Derivative as D, Rational, Expr
 
-from pynstein import utilities
-from pynstein.metric import Metric
+from pystein import utilities
+from pystein.metric import Metric
 
 
 def christoffel_symbol_component(lam: int, mu: int, nu: int, metric: Metric) -> Expr:

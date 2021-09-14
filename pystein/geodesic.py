@@ -10,7 +10,7 @@ import pandas
 import sympy
 from scipy import integrate
 
-from pynstein import metric, curvature, utilities
+from pystein import metric, curvature, utilities
 
 
 class Solution:

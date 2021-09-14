@@ -1,4 +1,4 @@
-"""Unittests for pynstein package
+"""Unittests for pystein package
 
 Presently only a dummy test to confirm repo setup and CI integration
 """
@@ -6,8 +6,8 @@ Presently only a dummy test to confirm repo setup and CI integration
 import pytest
 from sympy import Function, symbols, Derivative as D, Array
 
-from pynstein.symbolic import metric, coords
-from pynstein.utilities import tensor_pow as tpow
+from pystein.symbolic import metric, coords
+from pystein.utilities import tensor_pow as tpow
 
 
 class TestMetric:

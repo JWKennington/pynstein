@@ -11,7 +11,7 @@ from sympy import Rational, Expr, Matrix, simplify
 from sympy.diffgeom import TensorProduct
 from sympy.tensor.tensor import Tensor
 
-from pynstein import constants
+from pystein import constants
 
 
 def tensor_pow(x: Tensor, n: int) -> Tensor:

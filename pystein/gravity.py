@@ -6,9 +6,9 @@ in that it equates those quantities for fixed components.
 import sympy.core.numbers
 from sympy import Equality, Expr, pi, Matrix
 
-from pynstein import curvature, matter
-from pynstein import constants
-from pynstein.metric import Metric
+from pystein import curvature, matter
+from pystein import constants
+from pystein.metric import Metric
 
 sympy.core.numbers.NegativeOne
 

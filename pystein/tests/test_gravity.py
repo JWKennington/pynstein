@@ -3,8 +3,8 @@
 
 import pytest
 
-from pynstein.symbolic import gravity, metric, matter
-from pynstein.utilities import clean_expr
+from pystein.symbolic import gravity, metric, matter
+from pystein.utilities import clean_expr
 
 
 class TestGravity:

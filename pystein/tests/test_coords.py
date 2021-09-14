@@ -1,10 +1,10 @@
-"""Unittests for pynstein.symbolic.constants module"""
+"""Unittests for pystein.symbolic.constants module"""
 # pylint: disable=protected-access
 from sympy import symbols
 from sympy.diffgeom import CoordSystem as _CoordSystem, Manifold, Patch
 
-from pynstein.symbolic import coords
-from pynstein.utilities import tensor_pow as tpow
+from pystein.symbolic import coords
+from pystein.utilities import tensor_pow as tpow
 
 
 class TestCoords:

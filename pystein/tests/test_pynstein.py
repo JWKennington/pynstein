@@ -1,12 +1,12 @@
-"""Unittests for pynstein package
+"""Unittests for pystein package
 
 Presently only a dummy test to confirm repo setup and CI integration
 """
 
 import pathlib
 
-import pynstein
-from pynstein import tests
+import pystein
+from pystein import tests
 
 
 class TestCollapse:
@@ -16,9 +16,9 @@ class TestCollapse:
         """Consistency test for version numbers"""
         exp = (0, 2, 0)
         msg = 'Collapse Package {comp} Version Mismatch: Expected {exp:d}, got {got:d}'
-        assert pynstein.__MAJOR__ == exp[0], msg.format(comp='MAJOR', exp=exp[0], got=pynstein.__MAJOR__)
-        assert pynstein.__MINOR__ == exp[1], msg.format(comp='MINOR', exp=exp[1], got=pynstein.__MINOR__)
-        assert pynstein.__MICRO__ == exp[2], msg.format(comp='MICRO', exp=exp[2], got=pynstein.__MICRO__)
+        assert pystein.__MAJOR__ == exp[0], msg.format(comp='MAJOR', exp=exp[0], got=pystein.__MAJOR__)
+        assert pystein.__MINOR__ == exp[1], msg.format(comp='MINOR', exp=exp[1], got=pystein.__MINOR__)
+        assert pystein.__MICRO__ == exp[2], msg.format(comp='MICRO', exp=exp[2], got=pystein.__MICRO__)
 
     def test_test_root(self):
         """Test test root dir"""

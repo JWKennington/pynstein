@@ -21,8 +21,8 @@ The `pynstein` package makes use of `sympy` to compute symbolic curvature equati
 
 ```python
 # Load the predefined FLRW metric
-from pynstein import metric, gravity
-from pynstein import utilities
+from pystein import metric, gravity
+from pystein import utilities
 
 flrw = metric.flrw().subs({'c': 1})
 flrw
@@ -53,11 +53,11 @@ metric.simplify_deriv_notation(efe_00, flrw, use_dots=True)
 
 ```python
 from sympy.diffgeom import Manifold, Patch
-from pynstein import coords
+from pystein import coords
 ```
 
 ```python
-# The pynstein CoordinateSystem extends the sympy.diffgeom api to make parameters more accessible
+# The pystein CoordinateSystem extends the sympy.diffgeom api to make parameters more accessible
 M = Manifold('M', dim=2)
 P = Patch('origin', M)
 cs = coords.CoordSystem('cartesian', P, ['x', 'y'])
@@ -80,8 +80,8 @@ cs.base_symbols()
 ```python
 # Assembling a metric is easy
 from sympy import Array, symbols
-from pynstein import metric
-from pynstein.utilities import tensor_pow as tpow
+from pystein import metric
+from pystein.utilities import tensor_pow as tpow
 ```
 
 ```python
@@ -138,7 +138,7 @@ g3
 ```python
 # Now let's compute curvature terms
 from sympy import Function
-from pynstein import curvature
+from pystein import curvature
 ```
 
 ```python
@@ -159,7 +159,7 @@ curvature.ricci_tensor_component(0, 0, g4).doit()
 
 ```python
 # Let's compute the matter stress energy tensor of a perfect fluid in 1D
-from pynstein import matter
+from pystein import matter
 ```
 
 ```python
@@ -216,7 +216,7 @@ utilities.clean_expr(curvature.einstein_tensor_component(0, 0, g5_lim))
 
 ```python
 # One can also directly compute the Einstein Equations
-from pynstein import gravity
+from pystein import gravity
 ```
 
 ```python
