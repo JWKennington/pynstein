@@ -5,7 +5,7 @@
 [![PyPI versions](https://img.shields.io/pypi/pyversions/pystein)](https://pypi.org/project/pystein/)
 [![Build](https://github.com/JWKennington/pynstein/actions/workflows/build.yml/badge.svg)](https://github.com/JWKennington/pynstein/actions/workflows/build.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/jwkennington/pynstein/badge/main)](https://www.codefactor.io/repository/github/jwkennington/pynstein/overview/main)
-[![codecov](https://codecov.io/gh/JWKennington/pystein/branch/master/graph/badge.svg?token=G418VYV5LR)](undefined)
+[![codecov](https://codecov.io/gh/JWKennington/pynstein/branch/main/graph/badge.svg?token=2XRgGH05zb)](https://codecov.io/gh/JWKennington/pynstein)
 [![License](https://img.shields.io/pypi/l/pystein?color=magenta)](https://pypi.org/project/pystein/)
 
 
