@@ -3,14 +3,15 @@
 [![PyPI version](https://img.shields.io/pypi/v/pystein)](https://pypi.org/project/pystein/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/pystein)](https://pypi.org/project/pystein/)
 [![PyPI versions](https://img.shields.io/pypi/pyversions/pystein)](https://pypi.org/project/pystein/)
-[![Build](https://img.shields.io/travis/JWKennington/pystein)](https://pypi.org/project/pystein/)
+[![Build](https://github.com/JWKennington/pynstein/actions/workflows/build.yml/badge.svg)](https://github.com/JWKennington/pynstein/actions/workflows/build.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/jwkennington/pynstein/badge/main)](https://www.codefactor.io/repository/github/jwkennington/pynstein/overview/main)
 [![codecov](https://codecov.io/gh/JWKennington/pystein/branch/master/graph/badge.svg?token=G418VYV5LR)](undefined)
-[![CodeFactor Quality](https://img.shields.io/codefactor/grade/github/JWKennington/pystein?&label=codefactor)](https://pypi.org/project/pystein/)
-[![License](https://img.shields.io/github/license/JWKennington/pystein?color=magenta&label=License)](https://pypi.org/project/pystein/)
+[![License](https://img.shields.io/pypi/l/pystein?color=magenta)](https://pypi.org/project/pystein/)
+
 
 The `pystein` package contains utilities for computing symbolic utilities for computing various 
-quantities that arise in general relativity. Presently, this package computes components of tensors
-directly.
+quantities that arise in general relativity. Presently, this package is essentially a `sympy` extension that computes 
+components of tensors directly.
 
 
 ## Symbolic Tools
