@@ -14,7 +14,7 @@ class TestPyStein:
 
     def test_package_version(self):
         """Consistency test for version numbers"""
-        exp = (0, 5, 2)
+        exp = (0, 5, 3)
         msg = 'Collapse Package {comp} Version Mismatch: Expected {exp:d}, got {got:d}'
         assert pystein.__MAJOR__ == exp[0], msg.format(comp='MAJOR', exp=exp[0], got=pystein.__MAJOR__)
         assert pystein.__MINOR__ == exp[1], msg.format(comp='MINOR', exp=exp[1], got=pystein.__MINOR__)
