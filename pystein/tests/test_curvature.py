@@ -2,7 +2,7 @@
 """
 import pytest
 
-from pystein.symbolic import curvature, metric
+from pystein import curvature, metric
 from pystein.utilities import clean_expr
 
 

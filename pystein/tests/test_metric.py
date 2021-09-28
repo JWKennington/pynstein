@@ -6,7 +6,7 @@ Presently only a dummy test to confirm repo setup and CI integration
 import pytest
 from sympy import Function, symbols, Derivative as D, Array
 
-from pystein.symbolic import metric, coords
+from pystein import metric, coords
 from pystein.utilities import tensor_pow as tpow
 
 

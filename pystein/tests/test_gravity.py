@@ -3,7 +3,7 @@
 
 import pytest
 
-from pystein.symbolic import gravity, metric, matter
+from pystein import gravity, metric, matter
 from pystein.utilities import clean_expr
 
 

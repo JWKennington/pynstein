@@ -4,9 +4,9 @@
 from sympy import Array
 from sympy.matrices import diag, zeros
 
-from pystein.symbolic import symbols
+from pystein import symbols
 from pystein import constants
-from pystein.symbolic.metric import Metric
+from pystein.metric import Metric
 
 
 def vacuum(metric: Metric) -> Array:

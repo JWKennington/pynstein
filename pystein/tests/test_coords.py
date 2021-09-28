@@ -3,7 +3,7 @@
 from sympy import symbols
 from sympy.diffgeom import CoordSystem as _CoordSystem, Manifold, Patch
 
-from pystein.symbolic import coords
+from pystein import coords
 from pystein.utilities import tensor_pow as tpow
 
 

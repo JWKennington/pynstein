@@ -1,7 +1,7 @@
 """Unittests for pystein.symbolic.constants module"""
 # pylint: disable=protected-access
 
-from pystein.symbolic import symbols
+from pystein import symbols
 
 
 class TestSymbols:

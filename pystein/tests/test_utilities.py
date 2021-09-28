@@ -3,7 +3,7 @@
 
 from sympy import symbols, Matrix, Function, Derivative
 
-from pystein.symbolic import coords
+from pystein import coords
 from pystein import utilities
 
 
