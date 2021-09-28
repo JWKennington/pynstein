@@ -15,6 +15,7 @@ dependencies:
       - palettable
   - pandas
   - pytest
+  - pytest-cov
   - pytest-mock
   - scipy
   - sympy
