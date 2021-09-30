@@ -8,6 +8,7 @@ dependencies:
   - astropy
   - coverage
   - matplotlib
+  - myst-parser
   - notebook
   - numpy
   - pip
@@ -18,4 +19,5 @@ dependencies:
   - pytest-cov
   - pytest-mock
   - scipy
+  - sphinx
   - sympy
