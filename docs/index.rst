@@ -1,9 +1,8 @@
 PyStein Documentation
 =====================
 
-The `pystein` package contains utilities for computing symbolic utilities for computing various
-quantities that arise in general relativity. Presently, this package is essentially a `sympy` extension that computes
-components of tensors directly.
+The `pystein` package contains utilities for computing symbolic quantities that arise in general relativity. Presently,
+this package is essentially a `sympy` extension that computes components of tensors directly.
 
 .. toctree::
    :maxdepth: 2
