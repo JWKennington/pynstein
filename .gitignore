@@ -132,4 +132,4 @@ dmypy.json
 *.idea
 .DS_Store
 
-doc/_build
+docs/_build
