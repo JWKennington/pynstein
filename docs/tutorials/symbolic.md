@@ -1,5 +1,3 @@
-```{_tutorial_symbolic}
-```
 # Tutorial: Symbolic Tools
 
 This tutorial demonstrates in detail how to use the symbolic tools in `pystein`. For other tutorials 
