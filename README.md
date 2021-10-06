@@ -25,7 +25,7 @@ pip install pystein
 ## Symbolic Tools
 
 The `pystein` package makes use of `sympy` to compute symbolic curvature equations (EFE). A sample
-snippet is below. For more detail see the [documentation]().
+snippet is below. For more detail see the [documentation](https://pystein.readthedocs.io/en/latest/).
 
 ```python
 # Imports
