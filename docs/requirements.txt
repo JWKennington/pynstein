@@ -3,3 +3,4 @@ pytest
 astropy
 sympy
 numpy
+pandas
